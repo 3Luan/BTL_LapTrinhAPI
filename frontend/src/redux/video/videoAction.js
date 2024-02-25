@@ -4,13 +4,13 @@ import {
   FETCH_VIDEO_ERROR,
   FETCH_VIDEO_SUCCESS,
 } from "./videoSlice";
-import { fetchVideoAPI } from "../../services/videoService";
+import { popularVideosAPI, searchVideosAPI } from "../../services/videoService";
 
-export const handleFetchVideos = () => {
+export const getPopularVideos = () => {
   return async (dispatch, getState) => {
     dispatch(FETCH_VIDEO());
 
-    let res = await fetchVideoAPI();
+    let res = await popularVideosAPI();
 
     console.log("res: ", res);
 
@@ -21,7 +21,28 @@ export const handleFetchVideos = () => {
         dispatch(FETCH_VIDEO_ERROR());
       }
     } else {
-      toast.error("Lỗi server: (handleFetchVideos)");
+      toast.error("Lỗi server: (getPopularVideos)");
+      dispatch(FETCH_VIDEO_ERROR());
+    }
+  };
+};
+
+export const getVideosBySearch = (keyword) => {
+  return async (dispatch, getState) => {
+    dispatch(FETCH_VIDEO());
+
+    let res = await searchVideosAPI(keyword);
+
+    console.log("res: ", res);
+
+    if (res) {
+      if (res.items) {
+        dispatch(FETCH_VIDEO_SUCCESS(res.items));
+      } else {
+        dispatch(FETCH_VIDEO_ERROR());
+      }
+    } else {
+      toast.error("Lỗi server: (getPopularVideos)");
       dispatch(FETCH_VIDEO_ERROR());
     }
   };

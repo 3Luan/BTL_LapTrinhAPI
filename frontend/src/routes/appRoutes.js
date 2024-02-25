@@ -3,6 +3,7 @@ import Home from "../pages/home/Home";
 import Watch from "../pages/watch/Watch";
 import Header from "../components/header/Header";
 import SideBar from "../components/sidebar/SideBar";
+import Search from "../components/search/Search";
 
 const AppRoutes = () => {
   return (
@@ -12,6 +13,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/watch" element={<Watch />} />
+        <Route path="/search/:query" element={<Search />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </>

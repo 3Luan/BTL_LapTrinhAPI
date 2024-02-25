@@ -17,10 +17,10 @@ const SideBar = () => {
 
           <div className="nav_list">
             <div className="nav_items navtop">
-              <NavLink to="/" className="nav_link navtop active">
+              <a href="/" className="nav_link navtop active">
                 <i className="fa fa-house nav_icon"></i>
                 <span className="nav_name">Trang chủ</span>
-              </NavLink>
+              </a>
 
               <a href="#" className="nav_link navtop">
                 <i className="fa-brands fa-tiktok nav_icon"></i>
