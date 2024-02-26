@@ -1,9 +1,24 @@
 import axios from "axios";
 
+let keys = [
+  "AIzaSyBFlOGOXjfEs_D_sEAeo7jIHpUTSeZLN8s", // youtube1
+  "AIzaSyC_VNy1BhOtsrKk0ZjDjRdzhDtnapMVbk0", // youtube2
+  "AIzaSyAcxWwtzQSo0ax6chnlyl-SGCbNVVPBGxs", // youtube3
+  "AIzaSyDnT1-MLHCTtQlN21gXInpJvhIUd_HRSv8", // youtube4
+  "AIzaSyCgOAkrEOdflFLfxZbQnjQgX6M6o9xPzVc", // youtube5
+  "AIzaSyDWiJTt4CjBAb3fTT82C2m1ubki1EskK4M", // youtube6
+  "AIzaSyCKat1JHfcQllwXYUUiJCoW8E3JKn_Rp30", // youtube7
+  "AIzaSyCdUuGvWxjZ2M7vz2KEcsvPrv_BFc1Di5Y", // youtube8
+  "AIzaSyDMCqxtvmQy67XAHln-xnLRmQTv2bc3uls", // youtube9
+  "AIzaSyB22qdhxGY0KNfAMML_jxHc3WZAZsY8Nz8", // youtube10
+  "AIzaSyCz04WPV6NmpOJEr0uvA5sYhd6geHdBeSk", // youtube11
+  "AIzaSyAEKTvxhqmKTFiyjklUwLEqTDa3EAPtt7c", // youtube12
+];
+
 const instance = axios.create({
   baseURL: "https://youtube.googleapis.com/youtube/v3/",
   params: {
-    key: "AIzaSyB8ODcNT66RVRZAn5dQZuH8NCL54v1E67c",
+    key: "AIzaSyBWqhobrT6nFXBQyYjuJcNg6IgsoCy0i48",
   },
 });
 

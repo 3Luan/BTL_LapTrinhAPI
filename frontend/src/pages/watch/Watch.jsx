@@ -19,13 +19,19 @@ const Watch = () => {
       if (videoId) {
         await dispatch(getVideoById(videoId));
         if (title) {
-          dispatch(getVideoRelatedById(title));
+          const halfLength = Math.ceil(title.length / 4);
+          const firstHalf = title.slice(0, halfLength);
+
+          console.log(firstHalf);
+          dispatch(getVideoRelatedById(firstHalf));
         }
       }
     };
 
     fetchData();
   }, [videoId, title, dispatch]);
+
+  console.log(video);
 
   return (
     <>
