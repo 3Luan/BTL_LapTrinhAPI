@@ -14,8 +14,8 @@ const URL_FRONTEND = process.env.URL_FRONTEND;
 // Cấu hình CORS middleware
 app.use(
   cors({
-    origin: { URL_FRONTEND }, // Chỉ định miền nguồn cho phép
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Các phương thức HTTP cho phép
+    origin: { URL_FRONTEND },
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // Cho phép chia sẻ cookie và thông tin xác thực qua các miền khác nhau
     optionsSuccessStatus: 204, // Cho phép trả về status code 204 khi pre-flight request thành công
   })

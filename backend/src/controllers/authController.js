@@ -1,88 +1,167 @@
-const userService = require("../services/authService");
+const jwtActions = require("../middleware/jwtActions");
+const userModel = require("../models/UserModel");
+const bcrypt = require("bcrypt");
 
-let registerUser = async (req, res) => {
-  const { email, password } = req.body;
+let register = async (req, res) => {
   try {
-    let data = await userService.handleRegister(email, password);
+    const { name, email, password } = req.body;
 
-    if (data.code === 0) {
-      //Set cookie trong trường hợp đăng nhập thành công
-      res.cookie("refreshtoken", data.refreshToken, {
-        httpOnly: true,
-        path: "/api/refresh",
-        maxAge: 24 * 30 * 60 * 60 * 100, // 30 ngày
-      });
-
-      // Bỏ refreshtoken trước khi trả về cho client
-      let { refreshToken, ...newData } = data;
-      data = newData;
+    if (!name || !email || !password) {
+      throw {
+        code: 1,
+        message: "Không được bỏ trống thông tin",
+      };
     }
-    res.status(200).json(data);
+
+    let user = await userModel.findOne({ email });
+
+    if (user) {
+      throw {
+        code: 1,
+        message: "Email đã tồn tại",
+      };
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user = await userModel.create({ name, email, password: hashedPassword });
+
+    let payload = {
+      id: user._id,
+    };
+
+    const token = jwtActions.createJWT(payload);
+
+    // Lưu token vào cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      path: "/api/refresh",
+      maxAge: 24 * 60 * 60 * 1000, // 1 ngày
+    });
+
+    res.status(200).json({
+      code: 0,
+      message: "Đăng ký thành công",
+      user,
+      token,
+    });
   } catch (error) {
     res.status(200).json({
-      code: error.code,
-      message: error.message,
+      code: error.code || 1,
+      message: error.message || "Đã có lỗi xảy ra: register",
     });
   }
 };
 
-let loginUser = async (req, res) => {
-  const { email, password } = req.body;
+let login = async (req, res) => {
   try {
-    let data = await userService.handleLogin(email, password);
+    const { email, password } = req.body;
 
-    if (data.code === 0) {
-      //Set cookie trong trường hợp đăng nhập thành công
-      res.cookie("refreshtoken", data.refreshToken, {
-        httpOnly: true,
-        path: "/api/refresh",
-        maxAge: 24 * 30 * 60 * 60 * 100, // 30 ngày
-      });
-
-      // Bỏ refreshtoken trước khi trả về cho client
-      let { refreshToken, ...newData } = data;
-      data = newData;
+    if (!email || !password) {
+      throw {
+        code: 1,
+        message: "Không được bỏ trống thông tin",
+      };
     }
-    res.status(200).json(data);
+
+    let user = await userModel.findOne({ email });
+
+    if (!user) {
+      throw {
+        code: 1,
+        message: "Tài khoản hoặc mật khẩu không chính xác",
+      };
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw {
+        code: 1,
+        message: "Tài khoản hoặc mật khẩu không chính xác",
+      };
+    }
+
+    let payload = {
+      id: user._id,
+    };
+
+    const token = jwtActions.createJWT(payload);
+
+    // Lưu token vào cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      path: "/api/refresh",
+      maxAge: 24 * 60 * 60 * 1000, // 1 ngày
+    });
+
+    res.status(200).json({
+      code: 0,
+      message: "Đăng nhập thành công",
+      user,
+      token,
+    });
   } catch (error) {
     res.status(200).json({
-      code: error.code,
-      message: error.message,
+      code: error.code || 1,
+      message: error.message || "Đã có lỗi xảy ra: login",
     });
   }
 };
 
-let logoutUser = async (req, res) => {
+let logout = async (req, res) => {
   try {
-    res.clearCookie("refreshtoken", { path: "/api/refresh" });
+    // xóa cookie
+    res.clearCookie("token", { path: "/api/refresh" });
+
     res.status(200).json({
       code: 0,
       message: "Đăng xuất thành công",
     });
   } catch (error) {
     res.status(200).json({
-      code: 1,
-      message: "Đăng xuất thất bại",
+      code: error.code || 1,
+      message: error.message || "Đã có lỗi xảy ra: logout",
     });
   }
 };
 
-let refreshUser = async (req, res) => {
+let refresh = async (req, res) => {
   try {
-    let data = await userService.handleRefresh(req.userId);
+    const userId = req.userId;
 
-    res.status(200).json(data);
+    if (!userId) {
+      throw {
+        code: 1,
+        message: "Đã có lỗi xảy ra khi refresh1",
+      };
+    }
+
+    let user = await userModel.findById(userId);
+
+    if (!user) {
+      throw {
+        code: 1,
+        message: "Đã có lỗi xảy ra khi refresh2",
+      };
+    }
+
+    res.status(200).json({
+      code: 0,
+      message: "Refresh thành công",
+      user,
+    });
   } catch (error) {
     res.status(200).json({
-      code: 1,
-      message: "Hãy đăng nhập",
+      code: error.code || 1,
+      message: error.message || "Đã có lỗi xảy ra: refresh",
     });
   }
 };
 
 module.exports = {
-  registerUser: registerUser,
-  loginUser: loginUser,
-  logoutUser: logoutUser,
-  refreshUser: refreshUser,
+  register,
+  login,
+  logout,
+  refresh,
 };
