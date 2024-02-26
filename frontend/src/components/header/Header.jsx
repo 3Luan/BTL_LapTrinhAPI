@@ -58,7 +58,10 @@ const Header = () => {
           </div>
 
           <div className="img">
-            <img src="assets/images/logo.png" alt=""></img>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+              alt=""
+            ></img>
           </div>
         </div>
 

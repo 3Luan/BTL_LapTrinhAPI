@@ -12,8 +12,7 @@ const AppRoutes = () => {
       <SideBar></SideBar>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/watch" element={<Watch />} />
-        <Route path="/search/:query" element={<Search />} />
+        <Route path="/watch/:videoId" element={<Watch />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </>

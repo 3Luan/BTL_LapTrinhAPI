@@ -221,6 +221,24 @@ button {
   font-size: 13px;
   margin: 0;
 }
+/* Thêm */
+.iframe {
+  border-radius: 10px;
+}
+
+/* .title {
+
+} */
+
+.title {
+  padding-top: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #f1f1f1;
+  text-transform: uppercase; /* Chuyển đổi thành chữ in hoa */
+  margin-bottom: 10px;
+  line-height: 1.5; /* Độ cao của dòng chữ */
+}
 
 @media only screen and (max-width: 768px) {
   .video_items {

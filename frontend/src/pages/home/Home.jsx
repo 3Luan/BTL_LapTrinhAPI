@@ -15,7 +15,6 @@ const Home = () => {
     dispatch(getPopularVideos());
   }, []);
 
-  console.log("videos: ", videos);
   return (
     <>
       {!query ? (
@@ -25,7 +24,7 @@ const Home = () => {
               {videos.videos.map((video) => (
                 <>
                   <div key={video.id} className="video_items">
-                    <a href="/watch">
+                    <a href={`/watch/${video.id}`}>
                       <img src={video.snippet.thumbnails.high.url} alt=""></img>
                     </a>
                     <div className="details flex">

@@ -1,22 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const watchSlice = createSlice({
-  name: "watch",
+export const relatedSlice = createSlice({
+  name: "related",
   initialState: {
-    video: null,
+    video: [],
     isLoading: true,
     isError: false,
   },
   reducers: {
-    GET_VIDEO_BY_ID: (state, action) => {
+    GET_VIDEO_RELATED: (state, action) => {
       state.isLoading = true;
       state.isError = false;
     },
-    GET_VIDEO_BY_ID_ERROR: (state, action) => {
+    GET_VIDEO_RELATED_ERROR: (state, action) => {
       state.isLoading = false;
       state.isError = true;
     },
-    GET_VIDEO_BY_ID_SUCCESS: (state, action) => {
+    GET_VIDEO_RELATED_SUCCESS: (state, action) => {
       state.isLoading = false;
       state.isError = false;
 
@@ -26,9 +26,9 @@ export const watchSlice = createSlice({
 });
 
 export const {
-  GET_VIDEO_BY_ID,
-  GET_VIDEO_BY_ID_ERROR,
-  GET_VIDEO_BY_ID_SUCCESS,
-} = watchSlice.actions;
+  GET_VIDEO_RELATED,
+  GET_VIDEO_RELATED_ERROR,
+  GET_VIDEO_RELATED_SUCCESS,
+} = relatedSlice.actions;
 
-export default watchSlice.reducer;
+export default relatedSlice.reducer;

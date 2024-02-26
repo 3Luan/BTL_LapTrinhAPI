@@ -20,3 +20,23 @@ export const searchVideosAPI = (keyword) => {
     },
   });
 };
+
+export const getVideoByIdAPI = (videoId) => {
+  return youtubeApi.get(`videos`, {
+    params: {
+      part: "snippet,statistics",
+      id: videoId,
+    },
+  });
+};
+
+export const getVideoRelatedByIdAPI = (videoTitle) => {
+  return youtubeApi.get(`search`, {
+    params: {
+      part: "snippet",
+      type: "video",
+      q: videoTitle,
+      maxResults: 2,
+    },
+  });
+};

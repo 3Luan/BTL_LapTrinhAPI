@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #232323;
+  background-color: #000000;
   box-shadow: 0 1px 0 rgba(22, 8, 43, 0.1);
 }
 
@@ -19,7 +19,8 @@ header .search {
   display: flex;
   padding: 7px 12px;
   background-color: #121212;
-  border-radius: 4px;
+  border-radius: 20px;
+  border: 1px solid #252527;
 }
 
 header input {
@@ -27,11 +28,11 @@ header input {
   border: none;
   outline: none;
   background-color: #121212;
-  color: #58555e;
+  color: #a0a0a0;
 }
 
 header input::placeholder {
-  color: #58555e;
+  color: #323232;
 }
 
 header .user {

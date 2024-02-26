@@ -12,8 +12,6 @@ export const getPopularVideos = () => {
 
     let res = await popularVideosAPI();
 
-    console.log("res: ", res);
-
     if (res) {
       if (res.items) {
         dispatch(FETCH_VIDEO_SUCCESS(res.items));
