@@ -22,9 +22,9 @@ const SideBar = () => {
                 <span className="nav_name">Trang chủ</span>
               </a>
 
-              <a href="#" className="nav_link navtop">
-                <i className="fa-brands fa-tiktok nav_icon"></i>
-                <span className="nav_name">Shorts</span>
+              <a href="/trending" className="nav_link navtop">
+                <i className="fa-solid fa-music nav_icon"></i>
+                <span className="nav_name">Nhạc thịnh hành</span>
               </a>
 
               <a href="#" className="nav_link navtop">
@@ -33,10 +33,9 @@ const SideBar = () => {
               </a>
 
               <a href="#" className="nav_link navtop">
-                <i className="fa-solid fa-comment nav_icon"></i>
+                <i className="fa-solid fa-bell nav_icon"></i>
                 <span className="nav_name">Thông báo</span>
               </a>
-
               <a href="#" className="nav_link navtop">
                 <i className="fa-solid fa-clock-rotate-left nav_icon"></i>
                 <span className="nav_name">Video đã xem</span>
@@ -48,7 +47,7 @@ const SideBar = () => {
               </a>
 
               <a href="#" className="nav_link navtop">
-                <i className="fa-solid fa-thumbs-up nav_icon"></i>
+                <i className="fa-solid fa-list nav_icon"></i>
                 <span className="nav_name">Danh sách phát</span>
               </a>
             </div>

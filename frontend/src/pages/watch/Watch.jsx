@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../home/home.css";
-
+import YouTube from "react-youtube";
 import "./watch.css";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,28 +12,14 @@ const Watch = () => {
   const dispatch = useDispatch();
   const video = useSelector((state) => state.watch);
   const related = useSelector((state) => state.related);
-  const [videoTitle, setVideoTitle] = useState("");
-
-  // useEffect(() => {
-  //   if (videoId) {
-  //     dispatch(getVideoById(videoId));
-  //     dispatch(getVideoRelatedById(title));
-  //     console.log("title: ", title);
-  //   }
-  // }, [videoId, dispatch]);
-
   const title = video?.video?.snippet?.title;
 
   useEffect(() => {
     const fetchData = async () => {
       if (videoId) {
         await dispatch(getVideoById(videoId));
-
-        console.log("response: ", title);
-
         if (title) {
           dispatch(getVideoRelatedById(title));
-          console.log("title: ", title);
         }
       }
     };
@@ -51,21 +37,18 @@ const Watch = () => {
             <>
               <div className="left">
                 <div className="left_content">
-                  {/* <video controls>
-                    <source
-                      src={`https://www.youtube.com/embed/${video.video.id}`}
-                    ></source>
-                  </video> */}
-                  <iframe
-                    title="Video YouTube"
-                    width="98%"
-                    height="500px"
-                    src={`https://www.youtube.com/embed/${video.video.id}`}
-                    frameBorder="0"
-                    allowFullScreen
-                    className="iframe"
-                    style={{ color: "#f0f0f0" }}
-                  ></iframe>
+                  <YouTube
+                    videoId={video.video.id}
+                    opts={{
+                      height: "480",
+                      width: "100%",
+                      playerVars: {
+                        autoplay: 1,
+                        controls: 1,
+                        mute: 0,
+                      },
+                    }}
+                  />
 
                   <div className="title">
                     <p>{video?.video?.snippet?.title}</p>
@@ -95,7 +78,6 @@ const Watch = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className="details flex border_bottom">
                     <div className="img">
                       <img
@@ -113,7 +95,6 @@ const Watch = () => {
                       <span>Xem thêm</span>
                     </div>
                   </div>
-
                   <div className="comment">
                     <div className="comment-heading flex">
                       <h4>{video.video.statistics.commentCount} Bình luận</h4>
@@ -123,7 +104,6 @@ const Watch = () => {
                       </h4>
                     </div>
                   </div>
-
                   <div className="details comment_self flex">
                     <div className="img">
                       <img
@@ -135,7 +115,6 @@ const Watch = () => {
                       <input type="text" placeholder="Viết bình luận"></input>
                     </div>
                   </div>
-
                   <div className="details_Comment">
                     <div className="details flex">
                       <div className="img">

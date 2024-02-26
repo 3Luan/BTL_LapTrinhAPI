@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./home.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getPopularVideos } from "../../redux/video/videoAction";
+import { getPopularVideos } from "../../redux/videopopular/videoPopularAction";
 import { useLocation } from "react-router-dom";
 import Search from "../../components/search/Search";
 

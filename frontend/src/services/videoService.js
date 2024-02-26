@@ -5,6 +5,7 @@ export const popularVideosAPI = () => {
     params: {
       part: "snippet",
       chart: "mostPopular",
+      regionCode: "VN", // Video của quốc gia nào
       maxResults: 2, // Số lượng video bạn muốn hiển thị
     },
   });
@@ -24,7 +25,7 @@ export const searchVideosAPI = (keyword) => {
 export const getVideoByIdAPI = (videoId) => {
   return youtubeApi.get(`videos`, {
     params: {
-      part: "snippet,statistics",
+      part: "snippet,statistics,contentDetails",
       id: videoId,
     },
   });
@@ -36,6 +37,18 @@ export const getVideoRelatedByIdAPI = (videoTitle) => {
       part: "snippet",
       type: "video",
       q: videoTitle,
+      maxResults: 2,
+    },
+  });
+};
+
+export const getPopularMusicVideosAPI = () => {
+  return youtubeApi.get(`videos`, {
+    params: {
+      part: "snippet",
+      chart: "mostPopular",
+      regionCode: "VN",
+      videoCategoryId: 10,
       maxResults: 2,
     },
   });

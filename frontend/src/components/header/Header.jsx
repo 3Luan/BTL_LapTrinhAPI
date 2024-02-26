@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./header.css";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getVideosBySearch } from "../../redux/video/videoAction";
+import { getVideosBySearch } from "../../redux/videopopular/videoPopularAction";
 
 const Header = () => {
   const dispatch = useDispatch();

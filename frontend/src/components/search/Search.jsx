@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./search.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getPopularVideos } from "../../redux/video/videoAction";
+import { getPopularVideos } from "../../redux/videopopular/videoPopularAction";
 
 const Search = () => {
   const dispatch = useDispatch();

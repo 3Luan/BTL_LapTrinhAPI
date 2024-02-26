@@ -9,6 +9,7 @@ Run project: nodemon
 
 1. npm install react-router-dom react-bootstrap react-redux react-toastify react-loading-skeleton
 2. npm install redux sass socket.io-client @reduxjs/toolkit @fortawesome/fontawesome-free axios
+3. npm install react-youtube
 
 Run project: npm start
 

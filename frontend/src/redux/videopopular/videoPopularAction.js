@@ -3,7 +3,7 @@ import {
   FETCH_VIDEO,
   FETCH_VIDEO_ERROR,
   FETCH_VIDEO_SUCCESS,
-} from "./videoSlice";
+} from "./videoPopularSlice";
 import { popularVideosAPI, searchVideosAPI } from "../../services/videoService";
 
 export const getPopularVideos = () => {

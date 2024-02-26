@@ -12,6 +12,8 @@ export const getVideoById = (videoId) => {
 
     let res = await getVideoByIdAPI(videoId);
 
+    console.log("res: ", res);
+
     if (res) {
       if (res.items) {
         dispatch(GET_VIDEO_BY_ID_SUCCESS(res.items[0]));
