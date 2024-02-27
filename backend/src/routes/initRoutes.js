@@ -3,7 +3,7 @@ const router = express.Router();
 const authRoute = require("./authRoute");
 
 let initRoutes = (app) => {
-  app.use("/api", authRoute);
+  app.use("/api/auth", authRoute);
 
   return app;
 };

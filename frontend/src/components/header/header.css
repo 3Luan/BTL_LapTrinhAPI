@@ -58,6 +58,37 @@ header .toggle {
 }
 
 /*-------------------header------------*/
+/* Thêm */
+/* Customize the popup content */
+.custom-popup {
+  max-width: 280px; /* Set the maximum width of the popup */
+  padding: 15px; /* Add padding to the content */
+  background-color: #282828; /* Set background color */
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a box shadow */
+}
+
+.custom-popup div {
+  color: #d9d9d9; /* Customize text color */
+  font-size: 16px; /* Customize font size */
+}
+
+.modal-header {
+  border: 3px solid #8bb0e7;
+  margin: 0;
+  padding: 10px;
+  cursor: pointer; /* Set cursor to pointer */
+}
+
+.login_google img {
+  height: 45px;
+  width: 45px;
+  margin-right: 98px;
+}
+
+.login_google span {
+  font-size: 20px;
+}
 
 /*--------------video_items------------*/
 @media screen and (min-width: 768px) {

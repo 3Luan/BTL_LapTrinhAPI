@@ -3,12 +3,23 @@ import "./header.css";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getVideosBySearch } from "../../redux/videopopular/videoPopularAction";
+import { Popup } from "semantic-ui-react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Login from "../login/Login";
 
 const Header = () => {
   const dispatch = useDispatch();
   const [keywordSearch, setKeywordSearch] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleSearch = () => {
     if (keywordSearch) {
@@ -58,16 +69,54 @@ const Header = () => {
           </div>
 
           <div className="img">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
-              alt=""
-            ></img>
+            <Popup
+              trigger={
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+                  alt=""
+                />
+              }
+              on="click"
+              open={isPopupOpen}
+              onOpen={() => setPopupOpen(true)}
+              onClose={() => setPopupOpen(false)}
+              position="bottom right"
+              className="custom-popup" // Add a class for custom styling
+            >
+              {/* Content of the popup goes here */}
+              <Popup.Content>
+                <div>Trang cá nhân</div>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    handleShow();
+                    setPopupOpen(false);
+                  }}
+                >
+                  Launch demo modal
+                </Button>
+                <hr />
+                <div>Đăng xuất</div>
+              </Popup.Content>
+            </Popup>
+
+            <button onClick={() => console.log("onclick")}>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title className="text-center">
+                    <div className="login_google">
+                      <img src="assets/images/logo_google.png" alt=""></img>
+                      <span>Tiếp tục với Google</span>
+                    </div>
+                  </Modal.Title>
+                </Modal.Header>
+              </Modal>
+            </button>
           </div>
         </div>
-
-        <div className="toggle">
+        {/* <div className="toggle">
           <i className="fa-solid fa-bars" id="header-toggle"></i>
-        </div>
+        </div> */}
       </div>
     </header>
   );

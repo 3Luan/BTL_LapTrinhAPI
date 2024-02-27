@@ -6,6 +6,7 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 const cors = require("cors");
+require("./src/config/passport");
 
 const PORT = process.env.PORT || 3001;
 const HOST_NAME = process.env.HOST_NAME || "localhost";
