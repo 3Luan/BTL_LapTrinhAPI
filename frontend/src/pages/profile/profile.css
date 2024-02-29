@@ -1,0 +1,16 @@
+.avatar_profile {
+  text-align: center;
+  padding: 10px;
+}
+
+.avatar_profile img {
+  border-radius: 50%;
+}
+
+.name_profile {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  width: 100%;
+  color: #fff;
+  border-radius: 10px;
+}

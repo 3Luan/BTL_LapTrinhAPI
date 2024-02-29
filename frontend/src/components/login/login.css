@@ -1,0 +1,24 @@
+.modal-header {
+  border-radius: 50%;
+  margin: 0;
+  padding: 10px;
+  cursor: pointer; /* Set cursor to pointer */
+}
+
+.modal-content {
+  border-radius: 50px;
+}
+
+.modal-content:hover {
+  border: 2px solid #4242f9;
+}
+
+.login_google img {
+  height: 45px;
+  width: 45px;
+  margin-right: 100px;
+}
+
+.login_google span {
+  font-size: 20px;
+}

@@ -6,8 +6,9 @@ export const authSlice = createSlice({
     id: "",
     name: "",
     email: "",
-    password: "",
-    isLoading: false,
+    avatar: "",
+    // password: "",
+    isLoading: true,
     isError: false,
     auth: false,
   },
@@ -19,8 +20,9 @@ export const authSlice = createSlice({
 
       state.id = "";
       state.name = "";
+      state.avatar = "";
       state.email = "";
-      state.password = "";
+      // state.password = "";
     },
     registerError: (state) => {
       state.isLoading = false;
@@ -29,8 +31,9 @@ export const authSlice = createSlice({
 
       state.id = "";
       state.name = "";
+      state.avatar = "";
       state.email = "";
-      state.password = "";
+      // state.password = "";
     },
     registerSuccess: (state, action) => {
       state.isLoading = false;
@@ -40,7 +43,8 @@ export const authSlice = createSlice({
       state.id = action.payload._id;
       state.name = action.payload.name;
       state.email = action.payload.email;
-      state.password = action.payload.password;
+      state.password = action.payload.avatar;
+      // state.password = action.payload.password;
     },
     login: (state) => {
       state.isLoading = true;
@@ -84,7 +88,8 @@ export const authSlice = createSlice({
       state.id = "";
       state.name = "";
       state.email = "";
-      state.password = "";
+      state.avatar = "";
+      // state.password = "";
     },
     refreshSuccess: (state, action) => {
       state.isLoading = false;
@@ -94,17 +99,21 @@ export const authSlice = createSlice({
       state.id = action.payload._id;
       state.name = action.payload.name;
       state.email = action.payload.email;
-      state.password = action.payload.password;
+      state.avatar = action.payload.avatar;
+      // state.password = action.payload.password;
     },
     logout: (state) => {
       state.isLoading = true;
+      state.isError = false;
     },
     logoutError: (state) => {
       state.isLoading = false;
+      state.isError = true;
+      state.auth = false;
     },
     logoutSuccess: (state) => {
       state.isLoading = false;
-      state.isError = true;
+      state.isError = false;
       state.auth = false;
     },
   },

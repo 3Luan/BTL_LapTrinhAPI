@@ -6,16 +6,9 @@ import SideBar from "../components/sidebar/SideBar";
 import Search from "../components/search/Search";
 import Trending from "../pages/trending/Trending";
 import NotFound from "../pages/notfound/NotFound";
+import Profile from "../pages/profile/Profile";
 
 const AppRoutes = () => {
-  if (window.location.pathname === "/login") {
-    return (
-      <Routes>
-        <Route path="/login" element={<NotFound />} />
-      </Routes>
-    );
-  }
-
   return (
     <>
       <Header></Header>
@@ -24,6 +17,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/watch/:videoId" element={<Watch />} />
         <Route path="/trending" element={<Trending />} />
+        <Route path="/profile/:userId" element={<Profile />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </>

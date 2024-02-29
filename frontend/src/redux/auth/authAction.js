@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import {
   loginAPI,
+  loginWithGoogleAPI,
   logoutAPI,
   refreshAPI,
   registerAPI,
@@ -44,29 +45,27 @@ export const handleRegister = (name, email, password) => {
   };
 };
 
-export const handleLogin = (email, password) => {
+export const handleLoginWithGoogle = () => {
   return async (dispatch, getState) => {
     dispatch(login());
 
-    let res = await loginAPI(email, password);
+    let res = await loginWithGoogleAPI();
 
-    console.log("res: ", res);
-
-    if (res) {
-      if (res.code === 0) {
-        // Đăng nhập thành công
-        toast.success(res.message);
-        dispatch(loginSuccess(res.user));
-      } else if (res.code === 1) {
-        // Đăng nhập thất bại
-        toast.error(res.message);
-        dispatch(loginError(res.message));
-      }
-    } else {
-      // Đăng nhập thất bại
-      toast.error("Lỗi server: (handleLogin)");
-      dispatch(loginError());
-    }
+    // if (res) {
+    //   if (res.code === 0) {
+    //     // Đăng nhập thành công
+    //     toast.success(res.message);
+    //     dispatch(loginSuccess(res.user));
+    //   } else if (res.code === 1) {
+    //     // Đăng nhập thất bại
+    //     toast.error(res.message);
+    //     dispatch(loginError(res.message));
+    //   }
+    // } else {
+    //   // Đăng nhập thất bại
+    //   toast.error("Lỗi server: (handleLogin)");
+    //   dispatch(loginError());
+    // }
   };
 };
 
@@ -76,11 +75,11 @@ export const handleRefresh = () => {
 
     let res = await refreshAPI();
 
-    if (res && res.data) {
-      if (res.data.errCode === 0) {
+    if (res) {
+      if (res.code === 0) {
         // Lấy dữ liệu user login khi refresh thành công
-        dispatch(refreshSuccess(res.data));
-      } else if (res.data.errCode === 1) {
+        dispatch(refreshSuccess(res.user));
+      } else if (res.code === 1) {
         // Lấy dữ liệu user login khi refresh thất bại
         dispatch(refreshError());
       }
@@ -97,16 +96,15 @@ export const handleLogout = () => {
 
     let res = await logoutAPI();
 
+    console.log(res);
+
     if (res && res.data) {
       if (res.data.errCode === 0) {
-        // Lấy dữ liệu user login khi refresh thành công
         dispatch(logoutSuccess());
       } else if (res.data.errCode === 1) {
-        // Lấy dữ liệu user login khi refresh thất bại
         dispatch(logoutError());
       }
     } else {
-      // Lấy dữ liệu user login khi refresh thất bại
       dispatch(logoutError());
     }
   };

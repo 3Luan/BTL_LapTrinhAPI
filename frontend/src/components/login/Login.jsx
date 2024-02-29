@@ -1,33 +1,36 @@
-import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import React from "react";
+import { Modal } from "react-bootstrap";
 import "./login.css";
-const Login = () => {
-  const [show, setShow] = useState(false);
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+import { handleLoginWithGoogle } from "../../redux/auth/authAction";
+
+const Login = ({ show, handleClose }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleOnclickLogin = () => {
+    const popup = window.open("http://localhost:3001/api/auth/google", "_self");
+
+    handleClose();
+  };
 
   return (
-    <div>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      onClick={() => handleOnclickLogin()}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title className="text-center">
+          <div className="login_google">
+            <img src="assets/images/logo_google.png" alt="" />
+            <span>Tiếp tục với Google</span>
+          </div>
+        </Modal.Title>
+      </Modal.Header>
+    </Modal>
   );
 };
 
