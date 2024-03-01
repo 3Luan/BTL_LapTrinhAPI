@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { getVideosBySearch } from "../../redux/videopopular/videoPopularAction";
 import { Popup } from "semantic-ui-react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import Login from "../login/Login";
 import { handleLogout } from "../../redux/auth/authAction";
+import { handleCreatePosts } from "../../redux/posts/postsAction";
+import { getPostsAPI } from "../../services/postsService";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -64,6 +64,11 @@ const Header = () => {
       dispatch(handleLogout());
     }
   };
+
+  const onclickCreatePosts = () => {
+    dispatch(handleCreatePosts());
+  };
+
   return (
     <header className="header">
       <div className="header_container">
@@ -84,7 +89,13 @@ const Header = () => {
 
         <div className="user">
           <div className="icon">
-            <i className="fa-solid fa-video"></i>
+            <button
+              onClick={() => {
+                onclickCreatePosts();
+              }}
+            >
+              <i className="fa-solid fa-plus"></i>
+            </button>
             <i className="fa-solid fa-grip"></i>
             <i className="fa-solid fa-bell"></i>
           </div>

@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "../home/home.css";
 import "./profile.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { handleGetUserById } from "../../redux/user/userAction";
+import { useParams } from "react-router-dom";
+import { refresh } from "../../redux/auth/authSlice";
+import MyProfile from "../../components/profile/MyProfile";
+import UserProfile from "../../components/profile/UserProfile";
 
 const Profile = () => {
   const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  console.log("auth", auth);
-  return (
-    <>
-      <div className="profile">
-        <button className="name_profile">
-          <div className="avatar_profile">
-            <img src={auth.avatar} alt="" />
-          </div>
-          <span>{auth.name}</span>
-          <hr />
-          <div className="tags">
-            <button className="tags-bg active">Thông tin</button>
-            <button className="tags-bg">Bài viết</button>
-          </div>
-          <hr />
-        </button>
-      </div>
-    </>
-  );
+  const { userId } = useParams();
+
+  useEffect(() => {
+    dispatch(handleGetUserById(userId));
+  }, [userId, dispatch]);
+
+  return <>{auth.id === userId ? <MyProfile /> : <UserProfile />}</>;
 };
 
 export default Profile;

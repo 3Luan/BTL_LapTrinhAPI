@@ -37,7 +37,7 @@ let register = async (req, res) => {
     // Lưu token vào cookie
     res.cookie("token", token, {
       httpOnly: true,
-      path: "/api/auth/refresh",
+      // path: "/api/auth/refresh",
       maxAge: 24 * 60 * 60 * 1000, // 1 ngày
     });
 
@@ -93,7 +93,7 @@ let login = async (req, res) => {
     // Lưu token vào cookie
     res.cookie("token", token, {
       httpOnly: true,
-      path: "/api/auth/refresh",
+      // path: "/api/auth/refresh",
       maxAge: 24 * 60 * 60 * 1000, // 1 ngày
     });
 
@@ -154,7 +154,7 @@ const loginWithGoogleCallback = (req, res, next) => {
       // Lưu token vào cookie
       res.cookie("token", token, {
         httpOnly: true,
-        path: "/api/auth/refresh",
+        // path: "/api/auth/refresh",
         maxAge: 24 * 60 * 60 * 1000, // 1 ngày
       });
 

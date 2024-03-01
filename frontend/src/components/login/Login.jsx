@@ -11,8 +11,7 @@ const Login = ({ show, handleClose }) => {
   const navigate = useNavigate();
 
   const handleOnclickLogin = () => {
-    const popup = window.open("http://localhost:3001/api/auth/google", "_self");
-
+    window.open("http://localhost:3001/api/auth/google", "_self");
     handleClose();
   };
 
@@ -25,7 +24,7 @@ const Login = ({ show, handleClose }) => {
       <Modal.Header closeButton>
         <Modal.Title className="text-center">
           <div className="login_google">
-            <img src="assets/images/logo_google.png" alt="" />
+            <img src="/assets/images/logo_google.png" alt="" />
             <span>Tiếp tục với Google</span>
           </div>
         </Modal.Title>
