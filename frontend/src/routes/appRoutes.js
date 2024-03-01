@@ -7,8 +7,11 @@ import Search from "../components/search/Search";
 import Trending from "../pages/trending/Trending";
 import NotFound from "../pages/notfound/NotFound";
 import Profile from "../pages/profile/Profile";
+import Community from "../pages/community/Community";
+import { useSelector } from "react-redux";
 
 const AppRoutes = () => {
+  const auth = useSelector((state) => state.auth);
   return (
     <>
       <Header></Header>
@@ -18,6 +21,7 @@ const AppRoutes = () => {
         <Route path="/watch/:videoId" element={<Watch />} />
         <Route path="/trending" element={<Trending />} />
         <Route path="/profile/:userId" element={<Profile />} />
+        {auth.auth ? <Route path="/community" element={<Community />} /> : null}
         <Route path="*" element={<Home />} />
       </Routes>
     </>

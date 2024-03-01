@@ -11,26 +11,5 @@ router.post("/logout", authController.logout);
 
 router.get("/google", authController.loginWithGoogle);
 router.get("/google/callback", authController.loginWithGoogleCallback);
-// router.get(
-//   "/google",
-//   passport.authenticate("google", {
-//     scope: ["profile"],
-//     successRedirect: "http://localhost:3000/", // Địa chỉ frontend
-//     failureRedirect: "http://localhost:3000/login", // Địa chỉ frontend khi đăng nhập thất bại
-//   })
-// );
-
-// router.get(
-//   "/google/callback",
-//   (req, res, next) => {
-//     passport.authenticate("google", (err, profile) => {
-//       req.user = profile;
-//       next();
-//     })(req, res, next);
-//   },
-//   (req, res) => {
-//     res.redirect(`${process.env.URL_FRONTEND}`);
-//   }
-// );
 
 module.exports = router;

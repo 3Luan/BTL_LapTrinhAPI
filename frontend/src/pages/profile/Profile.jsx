@@ -10,18 +10,18 @@ const Profile = () => {
   return (
     <>
       <div className="profile">
-        <div className="avatar_profile">
-          <img src={auth.avatar} alt="" />
-        </div>
         <button className="name_profile">
+          <div className="avatar_profile">
+            <img src={auth.avatar} alt="" />
+          </div>
           <span>{auth.name}</span>
+          <hr />
+          <div className="tags">
+            <button className="tags-bg active">Thông tin</button>
+            <button className="tags-bg">Bài viết</button>
+          </div>
+          <hr />
         </button>
-        <div className="tags">
-          <label className="tags-bg active">Video đã xem</label>{" "}
-          <label className="tags-bg">Video đã thích</label>{" "}
-          <label className="tags-bg">Danh sách phát</label>{" "}
-        </div>
-        hello profile
       </div>
     </>
   );

@@ -1,0 +1,55 @@
+/* community feed */
+.community {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.community-posts {
+  padding: 15px;
+  background: #272727;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
+.header-posts {
+  display: flex;
+  align-items: center; /* Canh giữa theo chiều dọc */
+}
+
+.header-posts .avatar {
+  height: 80px;
+  width: 80px;
+  margin-right: 15px; /* Khoảng cách giữa avatar và nội dung bên phải */
+}
+
+.header-posts .avatar img {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.header-posts .info {
+  flex: 1; /* Chia sẻ không gian còn lại */
+}
+
+.header-posts .info a {
+  display: block; /* Hiển thị tên là một khối block để nằm dưới nhau */
+  font-weight: bold; /* Làm in đậm tên */
+}
+
+.body-posts .content {
+  padding-top: 10px;
+  color: #cbcdd1;
+}
+
+.footer-posts .interaction hr {
+  border-color: #343637; /* Màu cho đường viền của phần tử hr */
+}
+
+.footer-posts .interaction button {
+  color: #9d9fa4;
+}
+
+.footer-posts .interaction button:hover {
+  background-color: #343637;
+}

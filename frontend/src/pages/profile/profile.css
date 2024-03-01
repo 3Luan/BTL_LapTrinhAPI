@@ -5,12 +5,24 @@
 
 .avatar_profile img {
   border-radius: 50%;
+  border: 2px solid #fff;
 }
 
 .name_profile {
   background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  width: 100%;
+  padding: 15px;
+  width: 80%;
   color: #fff;
   border-radius: 10px;
+  display: block;
+  margin: 0 auto; /* Để căn giữa theo chiều ngang */
+}
+
+.name_profile span {
+  font-size: 20px; /* Đổi kích thước chữ theo nhu cầu của bạn */
+  font-weight: bold; /* Làm in đậm chữ */
+}
+
+hr {
+  border-color: #343637; /* Màu cho đường viền của phần tử hr */
 }

@@ -27,7 +27,7 @@ const SideBar = () => {
                 <span className="nav_name">Nhạc thịnh hành</span>
               </a>
 
-              <a href="#" className="nav_link navtop">
+              <a href="/community" className="nav_link navtop">
                 <i className="fa-solid fa-users nav_icon"></i>
                 <span className="nav_name">Cộng đồng</span>
               </a>
