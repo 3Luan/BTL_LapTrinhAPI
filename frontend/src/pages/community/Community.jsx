@@ -53,10 +53,16 @@ const Community = () => {
                       {item.files &&
                         item.files.map((file, index) => (
                           <div key={index} className="file-item">
-                            <p>{file.originalName}</p>
+                            <a
+                              href={`data:${file.contentType};base64,${file.data}`}
+                              download={file.originalName}
+                            >
+                              {file.originalName} (Size: {file.size} bytes)
+                            </a>
                           </div>
                         ))}
                     </div>
+
                     <div className="footer-posts">
                       <div className="interaction">
                         <hr />

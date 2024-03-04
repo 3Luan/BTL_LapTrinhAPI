@@ -59,7 +59,7 @@ const CreatePosts = ({ show, handleClose }) => {
           />
           <input
             type="file"
-            accept=".pdf, .doc"
+            accept=".pdf, .doc, .docx"
             onChange={handleFilesChange}
             multiple
           />

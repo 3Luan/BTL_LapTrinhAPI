@@ -52,6 +52,7 @@ let createPosts = async (req, res) => {
     });
   }
 };
+
 let getPosts = async (req, res) => {
   try {
     const posts = await postsModel
@@ -72,9 +73,18 @@ let getPosts = async (req, res) => {
         contentType: image.contentType,
         data: image.data.toString("base64"),
       }));
+
+      const files = post.files.map((file) => ({
+        contentType: file.contentType,
+        data: file.data.toString("base64"),
+        originalName: file.originalName, // Tên gốc của file
+        size: file.size, // Kích thước của file trong byte
+      }));
+
       return {
         ...post._doc,
         images,
+        files,
       };
     });
 
