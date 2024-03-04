@@ -8,30 +8,31 @@ import Login from "../login/Login";
 import { handleLogout } from "../../redux/auth/authAction";
 import { handleCreatePosts } from "../../redux/posts/postsAction";
 import { getPostsAPI } from "../../services/postsService";
+import CreatePosts from "../createposts/CreatePosts";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const [keywordSearch, setKeywordSearch] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const auth = useSelector((state) => state.auth);
+  const [keywordSearch, setKeywordSearch] = useState("");
 
   const [showPopup, setShowPopup] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-
-  const auth = useSelector((state) => state.auth);
+  const [showCreatePostsModal, setShowCreatePostsModal] = useState(false);
 
   const handleClose = () => {
     setShowPopup(false);
     setShowLoginModal(false);
-  };
-
-  const handleShow = () => {
-    setShowPopup(true);
-    setShowLoginModal(true);
+    setShowCreatePostsModal(false);
   };
 
   const handleShowLoginModal = () => {
     setShowLoginModal(true);
+  };
+
+  const handleShowCreatePostsModal = () => {
+    setShowCreatePostsModal(true);
   };
 
   const handleSearch = () => {
@@ -89,11 +90,7 @@ const Header = () => {
 
         <div className="user">
           <div className="icon">
-            <button
-              onClick={() => {
-                onclickCreatePosts();
-              }}
-            >
+            <button onClick={() => handleShowCreatePostsModal()}>
               <i className="fa-solid fa-plus"></i>
             </button>
             <i className="fa-solid fa-grip"></i>
@@ -143,8 +140,6 @@ const Header = () => {
                   on="click"
                   onOpen={() => handleShowLoginModal()}
                 ></Popup>
-
-                <Login show={showLoginModal} handleClose={handleClose} />
               </div>
             </>
           )}
@@ -152,6 +147,9 @@ const Header = () => {
         {/* <div className="toggle">
           <i className="fa-solid fa-bars" id="header-toggle"></i>
         </div> */}
+
+        <Login show={showLoginModal} handleClose={handleClose} />
+        <CreatePosts show={showCreatePostsModal} handleClose={handleClose} />
       </div>
     </header>
   );

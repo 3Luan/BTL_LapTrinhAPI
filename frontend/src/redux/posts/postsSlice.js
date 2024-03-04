@@ -22,7 +22,6 @@ export const postsSlice = createSlice({
       state.posts = [];
     },
     GET_POSTS_SUCCESS: (state, action) => {
-      console.log(action);
       state.isLoading = false;
       state.isError = false;
 

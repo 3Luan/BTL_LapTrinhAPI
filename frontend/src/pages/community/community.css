@@ -17,8 +17,8 @@
 }
 
 .header-posts .avatar {
-  height: 80px;
-  width: 80px;
+  height: 50px;
+  width: 50px;
   margin-right: 15px; /* Khoảng cách giữa avatar và nội dung bên phải */
 }
 
@@ -28,18 +28,39 @@
   height: 100%;
 }
 
+.header-posts .avatar img:hover {
+  border: 2px solid #9d9fa4;
+}
+
 .header-posts .info {
   flex: 1; /* Chia sẻ không gian còn lại */
 }
 
 .header-posts .info a {
-  display: block; /* Hiển thị tên là một khối block để nằm dưới nhau */
   font-weight: bold; /* Làm in đậm tên */
+  font-size: 16px; /* Làm in đậm tên */
+  color: #c5c6ca;
+}
+
+.header-posts .info a:hover {
+  color: #ffff;
+}
+
+.header-posts .info small {
+  display: block; /* Hiển thị tên là một khối block để nằm dưới nhau */
+  font-size: 12px; /* Làm in đậm tên */
 }
 
 .body-posts .content {
   padding-top: 10px;
   color: #cbcdd1;
+}
+.images_posts {
+}
+.images_posts img {
+  height: 20%;
+  width: 20%;
+  border-radius: 10px;
 }
 
 .footer-posts .interaction hr {

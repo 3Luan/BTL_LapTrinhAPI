@@ -168,7 +168,7 @@ const loginWithGoogleCallback = (req, res, next) => {
 let logout = async (req, res) => {
   try {
     // xóa cookie
-    res.clearCookie("token", { path: "/api/auth/refresh" });
+    res.clearCookie("token");
 
     res.status(200).json({
       code: 0,

@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const postsSchema = new mongoose.Schema(
   {
-    userId: {
+    user: {
       type: String,
-      required: true,
+      ref: "Users",
     },
     content: {
       type: String,
@@ -12,17 +12,26 @@ const postsSchema = new mongoose.Schema(
     },
     images: [
       {
-        imageUrl: { type: String, required: true },
-        description: { type: String },
+        data: Buffer,
+        contentType: String,
+        size: Number,
       },
     ],
     files: [
       {
-        fileUrl: { type: String, required: true },
-        fileName: { type: String, required: true },
-        fileSize: { type: Number },
+        data: Buffer, // Dữ liệu file dưới dạng Buffer
+        contentType: String, // Loại nội dung của file
+        originalName: String, // Tên gốc của file
+        size: Number, // Kích thước của file trong byte
       },
     ],
+    like: {
+      type: Number,
+    },
+    // comment: {
+    //   type: String,
+    //   ref: "Comments",
+    // },
   },
   {
     timestamps: true,

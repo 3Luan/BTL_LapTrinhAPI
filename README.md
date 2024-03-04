@@ -2,7 +2,7 @@
 
 1. npm install --save-exact express dotenv body-parser ejs mongoose bcrypt validator jsonwebtoken
 2. npm install --save-exact @babel/core @babel/node @babel/preset-env nodemon cors cookie-parser
-3. npm install passport-google-oauth20 passport
+3. npm install passport-google-oauth20 passport multer
 
 Run project: nodemon
 

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./community.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetPosts } from "../../redux/posts/postsAction";
+
 const Community = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
@@ -18,36 +19,55 @@ const Community = () => {
           {posts &&
             posts.posts.length > 0 &&
             posts.posts.map((item) => {
-              console.log("item", item);
               return (
-                <div class="community-posts">
+                <div className="community-posts" key={item._id}>
                   <div className="header-posts">
-                    <div class="avatar">
-                      <img
-                        alt=""
-                        src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                      />
-                    </div>
-                    <div class="info">
-                      <a href="#/"> Thành Luân </a>
-                      <small class="text-muted">{item.createdAt}</small>
+                    <a href={`profile/${item.user._id}`}>
+                      <div className="avatar">
+                        <img alt="" src={item.user.avatar} />
+                      </div>
+                    </a>
+                    <div className="info">
+                      <a href={`profile/${item.user._id}`}>
+                        {" "}
+                        {item.user.name}{" "}
+                      </a>
+                      <small className="text-muted">{item.createdAt}</small>
                     </div>
                   </div>
-                  <div class="body-posts">
+                  <div className="body-posts">
                     <div className="content">
                       <p>{item.content}</p>
                     </div>
+                    <div className="images_posts">
+                      {item.images &&
+                        item.images.map((image, index) => (
+                          <img
+                            key={index}
+                            alt={`Post Image ${index}`}
+                            src={`data:${image.contentType};base64,${image.data}`}
+                          />
+                        ))}
+                    </div>
+                    <div className="files_posts">
+                      {item.files &&
+                        item.files.map((file, index) => (
+                          <div key={index} className="file-item">
+                            <p>{file.originalName}</p>
+                          </div>
+                        ))}
+                    </div>
                     <div className="footer-posts">
-                      <div class="interaction">
+                      <div className="interaction">
                         <hr />
-                        <button class="btn btn-white btn-xs">
-                          <i class="fa fa-thumbs-up"></i> Thích
+                        <button className="btn btn-white btn-xs">
+                          <i className="fa fa-thumbs-up"></i> Thích
                         </button>
-                        <button class="btn btn-white btn-xs">
-                          <i class="fa fa-comments"></i> Bình luận
+                        <button className="btn btn-white btn-xs">
+                          <i className="fa fa-comments"></i> Bình luận
                         </button>
-                        <button class="btn btn-white btn-xs">
-                          <i class="fa fa-share"></i> Chia sẻ
+                        <button className="btn btn-white btn-xs">
+                          <i className="fa fa-share"></i> Chia sẻ
                         </button>
                       </div>
                     </div>
