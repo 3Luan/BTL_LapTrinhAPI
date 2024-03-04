@@ -16,9 +16,7 @@ router.post(
   ]),
   postsController.createPosts
 );
-
 router.get("/getPosts", checkJWT, postsController.getPosts);
-
 router.delete("/deletePosts", checkJWT, postsController.getPosts);
 
 module.exports = router;

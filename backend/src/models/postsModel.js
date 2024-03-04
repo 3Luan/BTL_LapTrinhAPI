@@ -25,13 +25,18 @@ const postsSchema = new mongoose.Schema(
         size: Number, // Kích thước của file trong byte
       },
     ],
-    like: {
-      type: Number,
-    },
-    // comment: {
-    //   type: String,
-    //   ref: "Comments",
-    // },
+    likes: [
+      {
+        type: String,
+        ref: "Like",
+      },
+    ],
+    comments: [
+      {
+        type: String,
+        ref: "Comment",
+      },
+    ],
   },
   {
     timestamps: true,

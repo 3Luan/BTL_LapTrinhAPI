@@ -24,17 +24,13 @@ const CreatePosts = ({ show, handleClose }) => {
 
   const handleOnclickCreatePosts = async () => {
     const formData = new FormData();
-
     formData.append("content", content);
-
     for (let i = 0; i < images.length; i++) {
       formData.append("images", images[i]);
     }
-
     for (let i = 0; i < files.length; i++) {
       formData.append("files", files[i]);
     }
-
     dispatch(handleCreatePosts(formData));
   };
 
@@ -45,24 +41,30 @@ const CreatePosts = ({ show, handleClose }) => {
           <Modal.Title>Tạo bài viết</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <input
+          <textarea
             type="textarea"
-            placeholder="What's on your mind?"
+            placeholder="Nhập nội dung..."
             value={content}
             onChange={handleContentChange}
           />
+
           <input
             type="file"
             accept="image/*"
             onChange={handleImagesChange}
             multiple
+            id="customFileInput"
           />
+          <span>Chọn ảnh</span>
+
           <input
             type="file"
             accept=".pdf, .doc, .docx"
             onChange={handleFilesChange}
             multiple
           />
+          <span>Chọn files</span>
+
           {/* Hiển thị danh sách các hình ảnh đã chọn */}
         </Modal.Body>
         <Modal.Footer>

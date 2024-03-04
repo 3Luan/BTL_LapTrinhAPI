@@ -4,10 +4,9 @@ const mongoose = require("mongoose");
 let createPosts = async (req, res) => {
   try {
     const { content } = req.body;
-    const images = req.files.images || []; // Assuming 'images' is the fieldname for images in req.files
+    const images = req.files.images || [];
     const files = req.files.files || [];
 
-    console.log("image: ", req.files);
     userId = req.userId;
 
     if (!userId || !content) {
@@ -17,13 +16,14 @@ let createPosts = async (req, res) => {
       };
     }
 
-    // Convert
+    // Convert images
     const imageObjects = images.map((image) => ({
       data: image.buffer,
       contentType: image.mimetype,
       size: image.size,
     }));
 
+    // Convert files
     const fileObjects = files.map((file) => ({
       data: file.buffer,
       contentType: file.mimetype,
@@ -68,7 +68,7 @@ let getPosts = async (req, res) => {
     }
 
     // Convert image data to base64 for sending to the client
-    const postsWithImages = posts.map((post) => {
+    const postsWithImagesAndFiles = posts.map((post) => {
       const images = post.images.map((image) => ({
         contentType: image.contentType,
         data: image.data.toString("base64"),
@@ -91,7 +91,7 @@ let getPosts = async (req, res) => {
     res.status(200).json({
       code: 0,
       message: "Lấy tất cả bài viết thành công",
-      posts: postsWithImages,
+      posts: postsWithImagesAndFiles,
     });
   } catch (error) {
     res.status(200).json({

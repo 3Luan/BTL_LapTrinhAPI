@@ -1,16 +1,16 @@
 .login .modal-content {
+  border-radius: 5px;
+}
+
+.login .modal-content:hover {
   border-radius: 50px;
 }
 
 .login .modal-header {
-  border-radius: 50%;
+  border-radius: 50px;
   margin: 0;
   padding: 10px;
   cursor: pointer; /* Set cursor to pointer */
-}
-
-.login .modal-content:hover {
-  border: 2px solid #4242f9;
 }
 
 .login_google img {

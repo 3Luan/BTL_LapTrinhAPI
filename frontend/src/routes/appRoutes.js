@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 
 const AppRoutes = () => {
   const auth = useSelector((state) => state.auth);
+
   return (
     <>
       <Header></Header>
@@ -21,7 +22,7 @@ const AppRoutes = () => {
         <Route path="/watch/:videoId" element={<Watch />} />
         <Route path="/trending" element={<Trending />} />
         <Route path="/profile/:userId" element={<Profile />} />
-        {auth.auth ? <Route path="/community" element={<Community />} /> : null}
+        <Route path="/community" element={<Community />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </>

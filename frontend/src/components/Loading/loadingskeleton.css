@@ -1,0 +1,25 @@
+/*start loding skeleton */
+
+.skeleton-loader:empty {
+  display: block;
+  background-color: #bdc3c7 !important;
+  border-color: #bdc3c7 !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+/*end loding skeleton */
