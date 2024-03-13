@@ -39,33 +39,31 @@ const SideBar = () => {
                 <span className="nav_name">Nhạc thịnh hành</span>
               </a>
 
-              {auth.auth ? (
-                <>
-                  <a href="/community" className="nav_link navtop">
-                    <i className="fa-solid fa-users nav_icon"></i>
-                    <span className="nav_name">Cộng đồng</span>
-                  </a>
+              <>
+                <a href="/community" className="nav_link navtop">
+                  <i className="fa-solid fa-users nav_icon"></i>
+                  <span className="nav_name">Cộng đồng</span>
+                </a>
 
-                  <a href="#" className="nav_link navtop">
-                    <i className="fa-solid fa-bell nav_icon"></i>
-                    <span className="nav_name">Thông báo</span>
-                  </a>
-                  <a href="/history" className="nav_link navtop">
-                    <i className="fa-solid fa-clock-rotate-left nav_icon"></i>
-                    <span className="nav_name">Video đã xem</span>
-                  </a>
+                <a href="#" className="nav_link navtop">
+                  <i className="fa-solid fa-bell nav_icon"></i>
+                  <span className="nav_name">Thông báo</span>
+                </a>
+                <a href="/history" className="nav_link navtop">
+                  <i className="fa-solid fa-clock-rotate-left nav_icon"></i>
+                  <span className="nav_name">Video đã xem</span>
+                </a>
 
-                  <a href="#" className="nav_link navtop">
-                    <i className="fa-solid fa-thumbs-up nav_icon"></i>
-                    <span className="nav_name">Video đã thích</span>
-                  </a>
+                <a href="#" className="nav_link navtop">
+                  <i className="fa-solid fa-thumbs-up nav_icon"></i>
+                  <span className="nav_name">Video đã thích</span>
+                </a>
 
-                  <a href="#" className="nav_link navtop">
-                    <i className="fa-solid fa-list nav_icon"></i>
-                    <span className="nav_name">Danh sách phát</span>
-                  </a>
-                </>
-              ) : null}
+                <a href="#" className="nav_link navtop">
+                  <i className="fa-solid fa-list nav_icon"></i>
+                  <span className="nav_name">Danh sách phát</span>
+                </a>
+              </>
             </div>
 
             <div className="nav_items subscribe-container">

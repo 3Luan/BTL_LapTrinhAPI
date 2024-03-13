@@ -53,10 +53,23 @@ const History = () => {
                           <div className="details">
                             <p>{item.videoInfo.snippet.title}</p>
                             <span>
-                              {item.videoInfo.snippet.channelTitle}{" "}
+                              {item.videoInfo.snippet.channelTitle}
                               <i className="fa fa-cricle-check"> </i>
                             </span>
-                            <span>56.7M . 1 Week ago</span>
+                            <br />
+                            <span>
+                              {item.videoInfo.statistics.viewCount} lượt xem
+                            </span>
+                            <br />
+
+                            <span>
+                              {item.videoInfo.snippet.description.length > 50
+                                ? item.videoInfo.snippet.description.substring(
+                                    0,
+                                    150
+                                  ) + "..."
+                                : item.videoInfo.snippet.description}
+                            </span>
                           </div>
                         </div>
                       </a>

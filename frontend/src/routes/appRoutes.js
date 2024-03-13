@@ -10,31 +10,53 @@ import Profile from "../pages/profile/Profile";
 import Community from "../pages/community/Community";
 import { useSelector } from "react-redux";
 import History from "../pages/history/History";
+import PrivateRoutes from "./privateRoutes";
 
 const AppRoutes = () => {
   const auth = useSelector((state) => state.auth);
 
-  return (
-    <>
-      <Header></Header>
-      <SideBar></SideBar>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/watch/:videoId" element={<Watch />} />
-        <Route path="/trending" element={<Trending />} />
+  if (!auth.isLoading) {
+    return (
+      <>
+        <Header></Header>
+        <SideBar></SideBar>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/watch/:videoId" element={<Watch />} />
+          <Route path="/trending" element={<Trending />} />
 
-        {auth.auth ? (
-          <>
-            <Route path="/profile/:userId" element={<Profile />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/history" element={<History />} />
-          </>
-        ) : null}
+          <Route
+            path="/history"
+            element={
+              <PrivateRoutes>
+                <History />
+              </PrivateRoutes>
+            }
+          />
 
-        <Route path="*" element={<Home />} />
-      </Routes>
-    </>
-  );
+          <Route
+            path="/profile/:userId"
+            element={
+              <PrivateRoutes>
+                <Profile />
+              </PrivateRoutes>
+            }
+          />
+
+          <Route
+            path="/community"
+            element={
+              <PrivateRoutes>
+                <Community />
+              </PrivateRoutes>
+            }
+          />
+
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </>
+    );
+  }
 };
 
 export default AppRoutes;

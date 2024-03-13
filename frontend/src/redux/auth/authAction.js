@@ -79,7 +79,7 @@ export const handleRefresh = () => {
       if (res.code === 0) {
         // Lấy dữ liệu user login khi refresh thành công
         dispatch(refreshSuccess(res.user));
-      } else if (res.code === 1) {
+      } else {
         // Lấy dữ liệu user login khi refresh thất bại
         dispatch(refreshError());
       }

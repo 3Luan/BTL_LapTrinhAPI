@@ -8,7 +8,8 @@ export const authSlice = createSlice({
     email: "",
     avatar: "",
     // password: "",
-    isLoading: true,
+
+    isLoading: false,
     isError: false,
     auth: false,
   },
@@ -77,10 +78,14 @@ export const authSlice = createSlice({
       state.password = action.payload.password;
     },
     refresh: (state) => {
+      console.log("0");
+
       state.isLoading = true;
       state.isError = false;
     },
     refreshError: (state) => {
+      console.log("1");
+
       state.isLoading = false;
       state.isError = true;
       state.auth = false;
@@ -92,6 +97,8 @@ export const authSlice = createSlice({
       // state.password = "";
     },
     refreshSuccess: (state, action) => {
+      console.log("2");
+
       state.isLoading = false;
       state.isError = false;
       state.auth = true;
