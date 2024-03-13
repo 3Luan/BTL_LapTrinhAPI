@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./sidebar.css";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Login from "../login/Login";
 
 const SideBar = () => {
+  const auth = useSelector((state) => state.auth);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleClose = () => {
+    setShowLoginModal(false);
+  };
+
+  const handleShowLoginModal = () => {
+    setShowLoginModal(true);
+  };
   return (
     <section className="nav" id="navbar">
       <nav className="nav_container">
@@ -27,29 +39,33 @@ const SideBar = () => {
                 <span className="nav_name">Nhạc thịnh hành</span>
               </a>
 
-              <a href="/community" className="nav_link navtop">
-                <i className="fa-solid fa-users nav_icon"></i>
-                <span className="nav_name">Cộng đồng</span>
-              </a>
+              {auth.auth ? (
+                <>
+                  <a href="/community" className="nav_link navtop">
+                    <i className="fa-solid fa-users nav_icon"></i>
+                    <span className="nav_name">Cộng đồng</span>
+                  </a>
 
-              <a href="#" className="nav_link navtop">
-                <i className="fa-solid fa-bell nav_icon"></i>
-                <span className="nav_name">Thông báo</span>
-              </a>
-              <a href="#" className="nav_link navtop">
-                <i className="fa-solid fa-clock-rotate-left nav_icon"></i>
-                <span className="nav_name">Video đã xem</span>
-              </a>
+                  <a href="#" className="nav_link navtop">
+                    <i className="fa-solid fa-bell nav_icon"></i>
+                    <span className="nav_name">Thông báo</span>
+                  </a>
+                  <a href="/history" className="nav_link navtop">
+                    <i className="fa-solid fa-clock-rotate-left nav_icon"></i>
+                    <span className="nav_name">Video đã xem</span>
+                  </a>
 
-              <a href="#" className="nav_link navtop">
-                <i className="fa-solid fa-thumbs-up nav_icon"></i>
-                <span className="nav_name">Video đã thích</span>
-              </a>
+                  <a href="#" className="nav_link navtop">
+                    <i className="fa-solid fa-thumbs-up nav_icon"></i>
+                    <span className="nav_name">Video đã thích</span>
+                  </a>
 
-              <a href="#" className="nav_link navtop">
-                <i className="fa-solid fa-list nav_icon"></i>
-                <span className="nav_name">Danh sách phát</span>
-              </a>
+                  <a href="#" className="nav_link navtop">
+                    <i className="fa-solid fa-list nav_icon"></i>
+                    <span className="nav_name">Danh sách phát</span>
+                  </a>
+                </>
+              ) : null}
             </div>
 
             <div className="nav_items subscribe-container">

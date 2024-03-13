@@ -96,8 +96,6 @@ export const handleLogout = () => {
 
     let res = await logoutAPI();
 
-    console.log(res);
-
     if (res && res.data) {
       if (res.data.errCode === 0) {
         dispatch(logoutSuccess());

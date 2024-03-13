@@ -26,7 +26,6 @@ const Search = () => {
         ) : (
           <>
             {videos.videos.map((video) => {
-              console.log("video id:", video);
               return (
                 <>
                   <div key={video.id.videoId} className="video_items">

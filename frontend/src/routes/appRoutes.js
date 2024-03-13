@@ -9,6 +9,7 @@ import NotFound from "../pages/notfound/NotFound";
 import Profile from "../pages/profile/Profile";
 import Community from "../pages/community/Community";
 import { useSelector } from "react-redux";
+import History from "../pages/history/History";
 
 const AppRoutes = () => {
   const auth = useSelector((state) => state.auth);
@@ -21,8 +22,15 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/watch/:videoId" element={<Watch />} />
         <Route path="/trending" element={<Trending />} />
-        <Route path="/profile/:userId" element={<Profile />} />
-        <Route path="/community" element={<Community />} />
+
+        {auth.auth ? (
+          <>
+            <Route path="/profile/:userId" element={<Profile />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/history" element={<History />} />
+          </>
+        ) : null}
+
         <Route path="*" element={<Home />} />
       </Routes>
     </>

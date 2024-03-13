@@ -6,8 +6,6 @@ const UserProfile = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  console.log(user);
-
   return (
     <div className="profile">
       <button className="name_profile">

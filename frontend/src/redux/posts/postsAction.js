@@ -25,8 +25,6 @@ export const handleGetPosts = () => {
 
     let res = await getPostsAPI();
 
-    console.log("res", res);
-
     if (res) {
       if (res.code === 0) {
         dispatch(GET_POSTS_SUCCESS(res.posts));

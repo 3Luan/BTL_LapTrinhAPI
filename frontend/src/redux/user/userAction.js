@@ -12,8 +12,6 @@ export const handleGetUserById = (userId) => {
 
     let res = await getUserByIdAPI(userId);
 
-    console.log("res: ");
-
     if (res) {
       if (res.code === 0) {
         dispatch(GET_USER_BY_ID_SUCCESS(res.user));

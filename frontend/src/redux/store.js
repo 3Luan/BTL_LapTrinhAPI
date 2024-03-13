@@ -6,6 +6,7 @@ import trendingSlice from "./trending/trendingSlice";
 import authSlice from "./auth/authSlice";
 import userSlice from "./user/userSlice";
 import postsSlice from "./posts/postsSlice";
+import historySlice from "./history/historySlice";
 
 export default configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export default configureStore({
     watch: watchSlice,
     related: relatedSlice,
     trending: trendingSlice,
+    history: historySlice,
   },
 });

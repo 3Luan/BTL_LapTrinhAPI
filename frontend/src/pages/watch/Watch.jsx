@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideoById } from "../../redux/watch/watchAction";
 import { getVideoRelatedById } from "../../redux/related/relatedAction";
+import { handleAddHistory } from "../../redux/history/historyAction";
 
 const Watch = () => {
   const { videoId } = useParams();
@@ -15,6 +16,10 @@ const Watch = () => {
   const title = video?.video?.snippet?.title;
 
   useEffect(() => {
+    dispatch(handleAddHistory(videoId));
+  }, [videoId]);
+
+  useEffect(() => {
     const fetchData = async () => {
       if (videoId) {
         await dispatch(getVideoById(videoId));
@@ -22,7 +27,6 @@ const Watch = () => {
           const halfLength = Math.ceil(title.length / 4);
           const firstHalf = title.slice(0, halfLength);
 
-          console.log(firstHalf);
           dispatch(getVideoRelatedById(firstHalf));
         }
       }
@@ -30,8 +34,6 @@ const Watch = () => {
 
     fetchData();
   }, [videoId, title, dispatch]);
-
-  console.log(video);
 
   return (
     <>

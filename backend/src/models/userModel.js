@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema(
     },
     avatar: { type: String },
     password: { type: String, require: true, minlength: 3, maxlength: 1024 },
+    // posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    // playlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Playlists" }],
+    // history: [{ type: mongoose.Schema.Types.ObjectId, ref: "Historys" }],
   },
   {
     timestamps: true,

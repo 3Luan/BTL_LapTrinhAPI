@@ -31,8 +31,6 @@ export const getVideosBySearch = (keyword) => {
 
     let res = await searchVideosAPI(keyword);
 
-    console.log("res: ", res);
-
     if (res) {
       if (res.items) {
         dispatch(FETCH_VIDEO_SUCCESS(res.items));

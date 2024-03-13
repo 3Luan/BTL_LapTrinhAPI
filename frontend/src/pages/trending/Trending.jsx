@@ -12,8 +12,6 @@ const Trending = () => {
     dispatch(getPopularMusicVideos());
   }, []);
 
-  console.log(trending);
-
   return (
     <>
       <main>
