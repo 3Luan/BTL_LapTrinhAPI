@@ -16,10 +16,10 @@ const Header = () => {
   const location = useLocation();
   const auth = useSelector((state) => state.auth);
   const [keywordSearch, setKeywordSearch] = useState("");
-
   const [showPopup, setShowPopup] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCreatePostsModal, setShowCreatePostsModal] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const handleClose = () => {
     setShowPopup(false);
@@ -50,7 +50,6 @@ const Header = () => {
     }
   }, [location.search, dispatch]);
 
-  // Xử lý sự kiện khi nhấn enter
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && keywordSearch !== "") {
       dispatch(getVideosBySearch(keywordSearch));
@@ -58,7 +57,6 @@ const Header = () => {
     }
   };
 
-  // Xử lý đăng xuất
   const handleClickLogout = () => {
     const confirm = window.confirm("Bạn có chắc chắn đăng xuất không?");
     if (confirm) {
@@ -66,7 +64,7 @@ const Header = () => {
     }
   };
 
-  const onclickCreatePosts = () => {
+  const onClickCreatePosts = () => {
     dispatch(handleCreatePosts());
   };
 
@@ -81,12 +79,32 @@ const Header = () => {
             value={keywordSearch}
             onChange={(e) => setKeywordSearch(e.target.value)}
             onKeyDown={handleKeyPress}
+            onFocus={() => setIsSearchFocused(true)}
+            onBlur={() => setIsSearchFocused(false)}
           ></input>
           <i
             className="fa-solid fa-magnifying-glass"
             onClick={() => handleSearch()}
           ></i>
         </div>
+        {/* <Popup
+          open={isSearchFocused}
+          onOpen={() => setShowPopup(true)}
+          onClose={() => setShowPopup(false)}
+          position="bottom left" // hoặc position="bottom center"
+          className="custom-popup"
+        >
+          <Popup.Content>
+            <button
+              onClick={() => {
+                handleClickLogout();
+              }}
+              className="text-white"
+            >
+              gợi ý tìm kiếm
+            </button>
+          </Popup.Content>
+        </Popup> */}
 
         <div className="user">
           <div className="icon">
@@ -144,13 +162,9 @@ const Header = () => {
             </>
           )}
         </div>
-        {/* <div className="toggle">
-          <i className="fa-solid fa-bars" id="header-toggle"></i>
-        </div> */}
-
-        <Login show={showLoginModal} handleClose={handleClose} />
-        <CreatePosts show={showCreatePostsModal} handleClose={handleClose} />
       </div>
+      <Login show={showLoginModal} handleClose={handleClose} />
+      <CreatePosts show={showCreatePostsModal} handleClose={handleClose} />
     </header>
   );
 };

@@ -20,19 +20,15 @@ const Watch = () => {
   }, [videoId]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (videoId) {
-        await dispatch(getVideoById(videoId));
-        if (title) {
-          const halfLength = Math.ceil(title.length / 4);
-          const firstHalf = title.slice(0, halfLength);
+    if (videoId) {
+      dispatch(getVideoById(videoId));
+      if (title) {
+        const halfLength = Math.ceil(title.length / 4);
+        const firstHalf = title.slice(0, halfLength);
 
-          dispatch(getVideoRelatedById(firstHalf));
-        }
+        dispatch(getVideoRelatedById(firstHalf));
       }
-    };
-
-    fetchData();
+    }
   }, [videoId, title, dispatch]);
 
   return (
@@ -43,138 +39,155 @@ const Watch = () => {
             <>Loading...</>
           ) : (
             <>
-              <div className="left">
-                <div className="left_content">
-                  <YouTube
-                    videoId={video.video.id}
-                    opts={{
-                      height: "480",
-                      width: "100%",
-                      playerVars: {
-                        autoplay: 1,
-                        controls: 1,
-                        mute: 0,
-                      },
-                    }}
-                  />
+              {video.video && (
+                <>
+                  <div className="left">
+                    <div className="left_content">
+                      <YouTube
+                        videoId={video.video.id}
+                        opts={{
+                          height: "480",
+                          width: "100%",
+                          playerVars: {
+                            autoplay: 1,
+                            controls: 1,
+                            mute: 0,
+                          },
+                        }}
+                      />
 
-                  <div className="title">
-                    <p>{video?.video?.snippet?.title}</p>
-                  </div>
-                  <div className="view flex2 border_bottom">
-                    <div className="view-text">
-                      <span>{video.video.statistics.viewCount} lượt xem</span>
-                    </div>
+                      <div className="title">
+                        <p>{video?.video?.snippet?.title}</p>
+                      </div>
+                      <div className="view flex2 border_bottom">
+                        <div className="view-text">
+                          <span>
+                            {video.video.statistics.viewCount} lượt xem
+                          </span>
+                        </div>
 
-                    <div className="flex">
-                      <div className="icon">
-                        <i className="fa fa-thumbs-up"></i>
-                        <label>{video.video.statistics.likeCount}</label>
-                      </div>
-                      <div className="icon">
-                        <i className="fa fa-thumbs-down"></i>
-                      </div>
-                      <div className="icon">
-                        <i className="fa fa-share"></i>
-                      </div>
-
-                      <div className="icon">
-                        <i className="fa fa-bookmark"></i>
-                      </div>
-                      <div className="icon">
-                        <i className="fa fa-ellipsis"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="details flex border_bottom">
-                    <div className="img">
-                      <img
-                        src={video.video.snippet.thumbnails.default.url}
-                        alt=""
-                      ></img>
-                    </div>
-                    <div className="heading">
-                      <h4>
-                        {video.video.snippet.channelTitle}{" "}
-                        <i className="fa fa-circle-check"></i>
-                      </h4>
-                      <span>15M Người đăng ký</span>
-                      <h5>{video.video.snippet.description}</h5>
-                      <span>Xem thêm</span>
-                    </div>
-                  </div>
-                  <div className="comment">
-                    <div className="comment-heading flex">
-                      <h4>{video.video.statistics.commentCount} Bình luận</h4>
-                      <h4>
-                        <i className="fa fa-list-ul"></i>
-                        <label>Sắp xếp theo</label>
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="details comment_self flex">
-                    <div className="img">
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
-                        alt=""
-                      ></img>
-                    </div>
-                    <div className="heading">
-                      <input type="text" placeholder="Viết bình luận"></input>
-                    </div>
-                  </div>
-                  <div className="details_Comment">
-                    <div className="details flex">
-                      <div className="img">
-                        <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" />
-                      </div>
-                      <div className="heading">
-                        <h4>
-                          Võ Văn A <span>2 months ago</span>
-                        </h4>
-                        <p>test bình luận</p>
-                        <div className="comment-like flex">
+                        <div className="flex">
                           <div className="icon">
                             <i className="fa fa-thumbs-up"></i>
-                            <label>5</label>
+                            <label>{video.video.statistics.likeCount}</label>
                           </div>
                           <div className="icon">
                             <i className="fa fa-thumbs-down"></i>
                           </div>
                           <div className="icon">
-                            <label>Phản hồi</label>
+                            <i className="fa fa-share"></i>
+                          </div>
+
+                          <div className="icon">
+                            <i className="fa fa-bookmark"></i>
+                          </div>
+                          <div className="icon">
+                            <i className="fa fa-ellipsis"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="details flex border_bottom">
+                        <div className="img">
+                          <img
+                            src={video.video.snippet.thumbnails.default.url}
+                            alt=""
+                          ></img>
+                        </div>
+                        <div className="heading">
+                          <h4>
+                            {video.video.snippet.channelTitle}{" "}
+                            <i className="fa fa-circle-check"></i>
+                          </h4>
+                          <span>15M Người đăng ký</span>
+                          <h5>
+                            {video.video.snippet.description.length > 50
+                              ? video.video.snippet.description.substring(
+                                  0,
+                                  200
+                                ) + "..."
+                              : video.video.snippet.description}
+                          </h5>
+
+                          <span>Xem thêm</span>
+                        </div>
+                      </div>
+                      <div className="comment">
+                        <div className="comment-heading flex">
+                          <h4>
+                            {video.video.statistics.commentCount} Bình luận
+                          </h4>
+                          <h4>
+                            <i className="fa fa-list-ul"></i>
+                            <label>Sắp xếp theo</label>
+                          </h4>
+                        </div>
+                      </div>
+                      <div className="details comment_self flex">
+                        <div className="img">
+                          <img
+                            src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
+                            alt=""
+                          ></img>
+                        </div>
+                        <div className="heading">
+                          <input
+                            type="text"
+                            placeholder="Viết bình luận"
+                          ></input>
+                        </div>
+                      </div>
+                      <div className="details_Comment">
+                        <div className="details flex">
+                          <div className="img">
+                            <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" />
+                          </div>
+                          <div className="heading">
+                            <h4>
+                              Võ Văn A <span>2 months ago</span>
+                            </h4>
+                            <p>test bình luận</p>
+                            <div className="comment-like flex">
+                              <div className="icon">
+                                <i className="fa fa-thumbs-up"></i>
+                                <label>5</label>
+                              </div>
+                              <div className="icon">
+                                <i className="fa fa-thumbs-down"></i>
+                              </div>
+                              <div className="icon">
+                                <label>Phản hồi</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="replay">
+                        <label className="tags">
+                          <i className="fa fa-caret-up"></i> 1 phản hồi
+                        </label>
+                        <div className="replay-details flex">
+                          <div className="img">
+                            <img src="assets/images/logo.png" alt=""></img>
+                          </div>
+                          <div className="text">
+                            <h4>
+                              <label>{video.video.snippet.channelTitle}</label>{" "}
+                              <span>2 months ago</span>
+                            </h4>
+                            <p>Test phản hồi bình luận</p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="replay">
-                    <label className="tags">
-                      <i className="fa fa-caret-up"></i> 1 phản hồi
-                    </label>
-                    <div className="replay-details flex">
-                      <div className="img">
-                        <img src="assets/images/logo.png" alt=""></img>
-                      </div>
-                      <div className="text">
-                        <h4>
-                          <label>{video.video.snippet.channelTitle}</label>{" "}
-                          <span>2 months ago</span>
-                        </h4>
-                        <p>Test phản hồi bình luận</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </>
+              )}
             </>
           )}
 
           <div className="right">
             <div className="right_content">
-              <button className="chat">
-                Hiện nội dung phát lại cuộc trò chuyện
-              </button>
+              <button className="chat">Danh sách các Video liên quan</button>
 
               <div className="tags">
                 <label className="tags-bg">Tất cả</label>

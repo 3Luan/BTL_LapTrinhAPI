@@ -22,3 +22,21 @@
 .login_google span {
   font-size: 20px;
 }
+
+.login-in-private {
+  cursor: pointer; /* Set cursor to pointer */
+  border-radius: 50px;
+  border: 1px solid #888;
+  width: auto;
+  padding: 6px;
+  background: #fff;
+}
+
+.login-in-private span {
+  margin-right: 100px;
+}
+
+.centered-wrapper {
+  display: flex; /* Hiển thị phần tử con dưới dạng flexbox */
+  justify-content: center; /* Căn giữa phần tử theo chiều ngang */
+}

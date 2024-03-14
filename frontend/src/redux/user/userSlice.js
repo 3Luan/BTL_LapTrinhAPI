@@ -6,17 +6,12 @@ export const userSlice = createSlice({
     name: "",
     avatar: "",
 
-    isLoading: true,
+    isLoading: false,
     isError: false,
-    auth: false,
   },
   reducers: {
     GET_USER_BY_ID: (state) => {
       state.isLoading = true;
-      state.isError = false;
-
-      state.name = "";
-      state.avatar = "";
     },
     GET_USER_BY_ID_ERROR: (state) => {
       state.isLoading = false;

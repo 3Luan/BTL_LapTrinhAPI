@@ -5,13 +5,12 @@ export const trendingSlice = createSlice({
   initialState: {
     videos: [],
 
-    isLoading: true,
+    isLoading: false,
     isError: false,
   },
   reducers: {
     GET_TRENDING_MUSSIC: (state, action) => {
       state.isLoading = true;
-      state.isError = false;
     },
     GET_TRENDING_MUSSIC_ERROR: (state, action) => {
       state.videos = [];

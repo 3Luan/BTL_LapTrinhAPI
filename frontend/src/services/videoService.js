@@ -6,7 +6,7 @@ export const popularVideosAPI = () => {
       part: "snippet",
       chart: "mostPopular",
       regionCode: "VN", // Video của quốc gia nào
-      maxResults: 1, // Số lượng video bạn muốn hiển thị
+      maxResults: 2, // Số lượng video bạn muốn hiển thị
     },
   });
 };
@@ -17,7 +17,7 @@ export const searchVideosAPI = (keyword) => {
       part: "snippet",
       type: "video",
       q: keyword,
-      maxResults: 10,
+      maxResults: 2,
     },
   });
 };
@@ -37,7 +37,7 @@ export const getVideoRelatedByIdAPI = (videoTitle) => {
       part: "snippet",
       type: "video",
       q: videoTitle,
-      maxResults: 10,
+      maxResults: 2,
     },
   });
 };

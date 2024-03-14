@@ -1,10 +1,7 @@
-import { toast } from "react-toastify";
 import {
-  loginAPI,
   loginWithGoogleAPI,
   logoutAPI,
   refreshAPI,
-  registerAPI,
 } from "../../services/authService";
 import {
   login,
@@ -16,34 +13,7 @@ import {
   refresh,
   refreshError,
   refreshSuccess,
-  register,
-  registerError,
-  registerSuccess,
 } from "./authSlice";
-
-export const handleRegister = (name, email, password) => {
-  return async (dispatch, getState) => {
-    dispatch(register());
-
-    let res = await registerAPI(name, email, password);
-
-    if (res && res.data) {
-      if (res.data.errCode === 0) {
-        // Đăng ký thành công
-        toast.success(res.data.message);
-        dispatch(registerSuccess(res.data));
-      } else if (res.data.errCode === 1) {
-        // Đăng ký thất bại
-        toast.error(res.data.message);
-        dispatch(registerError());
-      }
-    } else {
-      // Đăng ký thất bại
-      toast.error("Error handeRegister");
-      dispatch(registerError());
-    }
-  };
-};
 
 export const handleLoginWithGoogle = () => {
   return async (dispatch, getState) => {

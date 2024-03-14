@@ -14,10 +14,8 @@ const History = () => {
 
   // Sắp xếp mảng history theo thời gian cập nhật mới nhất
   const sortedHistory = [...history.history].sort((a, b) => {
-    console.log("1");
-
-    const dateA = new Date(a.updatedAt);
-    const dateB = new Date(b.updatedAt);
+    const dateA = new Date(a.addedAt);
+    const dateB = new Date(b.addedAt);
     return dateB - dateA;
   });
 
@@ -37,8 +35,6 @@ const History = () => {
               ) : (
                 <>
                   {sortedHistory.map((item) => {
-                    console.log("itemHISTORY", item);
-
                     return (
                       <a href={`watch/${item.videoInfo.id}`}>
                         <div className="video_items vide_sidebar_history flex">

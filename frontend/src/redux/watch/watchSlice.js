@@ -4,17 +4,19 @@ export const watchSlice = createSlice({
   name: "watch",
   initialState: {
     video: null,
-    isLoading: true,
+
+    isLoading: false,
     isError: false,
   },
   reducers: {
     GET_VIDEO_BY_ID: (state, action) => {
       state.isLoading = true;
-      state.isError = false;
     },
     GET_VIDEO_BY_ID_ERROR: (state, action) => {
       state.isLoading = false;
       state.isError = true;
+
+      state.video = null;
     },
     GET_VIDEO_BY_ID_SUCCESS: (state, action) => {
       state.isLoading = false;

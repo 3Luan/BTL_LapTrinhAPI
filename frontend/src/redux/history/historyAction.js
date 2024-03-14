@@ -1,11 +1,10 @@
 import toast from "react-hot-toast";
-import { createPosts, getPostsAPI } from "../../services/postsService";
 import {
   GET_HISTORY,
   GET_HISTORY_ERROR,
   GET_HISTORY_SUCCESS,
 } from "./historySlice";
-import { addHistoryAPI, getHistoryAPI } from "../../services/historyService";
+import { addHistoryAPI, getHistoryAPI } from "../../services/userService";
 import { getVideoByIdAPI } from "../../services/videoService";
 
 export const handleAddHistory = (videoId) => {
@@ -34,7 +33,7 @@ export const handleGetHistory = () => {
     if (res) {
       if (res.code === 0) {
         // Lấy danh sách các video IDs từ mảng history
-        const videoIds = res.history.map((item) => item.video);
+        const videoIds = res.history.map((item) => item.videoId);
 
         // Gọi API để lấy thông tin của các video từ videoIds
         let videosInfo = await Promise.all(
@@ -43,8 +42,7 @@ export const handleGetHistory = () => {
 
         // Lọc thông tin cần thiết từ kết quả trả về
         const historyData = res.history.map((item, index) => ({
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
+          addedAt: item.addedAt,
           videoInfo: videosInfo[index].items[0],
         }));
 

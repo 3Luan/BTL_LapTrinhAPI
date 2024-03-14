@@ -11,7 +11,6 @@ export const videoSlice = createSlice({
   reducers: {
     FETCH_VIDEO: (state, action) => {
       state.isLoading = true;
-      state.isError = false;
     },
     FETCH_VIDEO_ERROR: (state, action) => {
       state.videos = [];

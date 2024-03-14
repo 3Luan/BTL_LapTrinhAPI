@@ -4,17 +4,18 @@ export const relatedSlice = createSlice({
   name: "related",
   initialState: {
     video: [],
-    isLoading: true,
+    isLoading: false,
     isError: false,
   },
   reducers: {
     GET_VIDEO_RELATED: (state, action) => {
       state.isLoading = true;
-      state.isError = false;
     },
     GET_VIDEO_RELATED_ERROR: (state, action) => {
       state.isLoading = false;
       state.isError = true;
+
+      state.video = [];
     },
     GET_VIDEO_RELATED_SUCCESS: (state, action) => {
       state.isLoading = false;

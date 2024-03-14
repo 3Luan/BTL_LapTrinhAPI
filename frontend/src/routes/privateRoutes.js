@@ -9,12 +9,32 @@ const PrivateRoutes = (props) => {
   const navigate = useNavigate();
   console.log(auth.auth, auth.isLoading);
 
+  const handleOnclickLogin = () => {
+    window.open("http://localhost:3001/api/auth/google", "_self");
+  };
+
   if (!auth.auth) {
     return (
-      <div className="alert alert-danger text-center" role="alert">
-        <h4 className="alert-heading">Error!</h4>
-        <p>Đăng nhập để thao tác</p>
-      </div>
+      <>
+        <div className="alert text-center" role="alert">
+          <h4 className="alert-heading text-danger">
+            Bạn không thể tao tác khi chưa đăng nhập!
+          </h4>
+        </div>
+        <div className="centered-wrapper">
+          <div
+            className="login-in-private"
+            onClick={() => {
+              handleOnclickLogin();
+            }}
+          >
+            <div className="login_google">
+              <img src="/assets/images/logo_google.png" alt="" />
+              <span>Tiếp tục với Google</span>
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
 

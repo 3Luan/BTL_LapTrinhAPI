@@ -5,15 +5,12 @@ export const postsSlice = createSlice({
   initialState: {
     posts: [],
 
-    isLoading: true,
+    isLoading: false,
     isError: false,
   },
   reducers: {
     GET_POSTS: (state) => {
       state.isLoading = true;
-      state.isError = false;
-
-      state.posts = [];
     },
     GET_POSTS_ERROR: (state) => {
       state.isLoading = false;
