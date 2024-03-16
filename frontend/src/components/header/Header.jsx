@@ -64,10 +64,6 @@ const Header = () => {
     }
   };
 
-  const onClickCreatePosts = () => {
-    dispatch(handleCreatePosts());
-  };
-
   return (
     <header className="header">
       <div className="header_container">

@@ -39,35 +39,35 @@ const SideBar = () => {
                 <span className="nav_name">Nhạc thịnh hành</span>
               </a>
 
-              <>
-                <a href="/community" className="nav_link navtop">
-                  <i className="fa-solid fa-users nav_icon"></i>
-                  <span className="nav_name">Cộng đồng</span>
-                </a>
+              <a href="/community" className="nav_link navtop">
+                <i className="fa-solid fa-users nav_icon"></i>
+                <span className="nav_name">Cộng đồng</span>
+              </a>
 
-                <a href="#" className="nav_link navtop">
-                  <i className="fa-solid fa-bell nav_icon"></i>
-                  <span className="nav_name">Thông báo</span>
-                </a>
-                <a href="/history" className="nav_link navtop">
-                  <i className="fa-solid fa-clock-rotate-left nav_icon"></i>
-                  <span className="nav_name">Video đã xem</span>
-                </a>
+              <a href="#" className="nav_link navtop">
+                <i className="fa-solid fa-bell nav_icon"></i>
+                <span className="nav_name">Thông báo</span>
+              </a>
 
-                <a href="#" className="nav_link navtop">
-                  <i className="fa-solid fa-thumbs-up nav_icon"></i>
-                  <span className="nav_name">Video đã thích</span>
-                </a>
+              <a href="/history" className="nav_link navtop">
+                <i className="fa-solid fa-clock-rotate-left nav_icon"></i>
+                <span className="nav_name">Video đã xem</span>
+              </a>
 
-                <a href="#" className="nav_link navtop">
-                  <i className="fa-solid fa-list nav_icon"></i>
-                  <span className="nav_name">Danh sách phát</span>
-                </a>
-              </>
+              <a href="#" className="nav_link navtop">
+                {/* <i className="fa-solid fa-thumbs-up nav_icon"></i> */}
+                <i className="fa fa-bookmark nav_icon"></i>
+                <span className="nav_name">Video đã lưu</span>
+              </a>
+
+              <a href="#" className="nav_link navtop">
+                <i className="fa-solid fa-list nav_icon"></i>
+                <span className="nav_name">Danh sách phát</span>
+              </a>
             </div>
 
             <div className="nav_items subscribe-container">
-              <h3 className="nav_subititle">chưa</h3>
+              <h3 className="nav_subititle">Name</h3>
 
               <a href="#" className="nav_link">
                 <img
@@ -75,7 +75,7 @@ const SideBar = () => {
                   src="https://img.icons8.com/external-victoruler-flat-victoruler/64/000000/external-boy-people-victoruler-flat-victoruler-5.png"
                   alt=""
                 ></img>
-                <span className="nav_name">chưa</span>
+                <span className="nav_name">Name</span>
               </a>
               <a href="#" className="nav_link">
                 <img
@@ -83,7 +83,7 @@ const SideBar = () => {
                   src="https://img.icons8.com/external-victoruler-flat-victoruler/64/000000/external-boy-people-victoruler-flat-victoruler-5.png"
                   alt=""
                 ></img>
-                <span className="nav_name">chưa</span>
+                <span className="nav_name">Name</span>
               </a>
               <a href="#" className="nav_link">
                 <img
@@ -91,7 +91,7 @@ const SideBar = () => {
                   src="https://img.icons8.com/external-victoruler-flat-victoruler/64/000000/external-boy-people-victoruler-flat-victoruler-5.png"
                   alt=""
                 ></img>
-                <span className="nav_name">chưa</span>
+                <span className="nav_name">Name</span>
               </a>
 
               <div className="nav_dropdown">
@@ -107,21 +107,21 @@ const SideBar = () => {
                         className="subscribe"
                         src="https://img.icons8.com/external-victoruler-flat-victoruler/64/000000/external-boy-children-avatar-victoruler-flat-victoruler-12.png"
                       />
-                      <span className="nav_name">chưa</span>
+                      <span className="nav_name">Name</span>
                     </a>
                     <a href="#" className="nav_dropdown-items">
                       <img
                         className="subscribe"
                         src="https://img.icons8.com/external-victoruler-flat-victoruler/64/000000/external-boy-children-avatar-victoruler-flat-victoruler-12.png"
                       />
-                      <span className="nav_name">chưa</span>
+                      <span className="nav_name">Name</span>
                     </a>
                     <a href="#" className="nav_dropdown-items">
                       <img
                         className="subscribe"
                         src="https://img.icons8.com/external-victoruler-flat-victoruler/64/000000/external-boy-children-avatar-victoruler-flat-victoruler-12.png"
                       />
-                      <span className="nav_name">chưa</span>
+                      <span className="nav_name">Name</span>
                     </a>
                   </div>
                 </div>
