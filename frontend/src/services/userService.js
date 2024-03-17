@@ -11,3 +11,11 @@ export const addHistoryAPI = (videoId) => {
 export const getHistoryAPI = () => {
   return backendApi.get("/api/user/getHistory");
 };
+
+export const toggleSaveVideoAPI = (videoId) => {
+  return backendApi.post("/api/user/toggleSaveVideo", { videoId });
+};
+
+export const getSavedVideoAPI = () => {
+  return backendApi.get("/api/user/getSavedVideo");
+};

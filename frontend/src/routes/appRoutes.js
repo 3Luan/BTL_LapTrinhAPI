@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import History from "../pages/history/History";
 import PrivateRoutes from "./privateRoutes";
 import Loading from "../components/Loading/Loading";
+import Saved from "../pages/saved/Saved";
 
 const AppRoutes = () => {
   const auth = useSelector((state) => state.auth);
@@ -36,6 +37,15 @@ const AppRoutes = () => {
           element={
             <PrivateRoutes>
               <History />
+            </PrivateRoutes>
+          }
+        />
+
+        <Route
+          path="/saved"
+          element={
+            <PrivateRoutes>
+              <Saved />
             </PrivateRoutes>
           }
         />

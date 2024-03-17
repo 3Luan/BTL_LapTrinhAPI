@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getVideoById } from "../../redux/watch/watchAction";
 import { getVideoRelatedById } from "../../redux/related/relatedAction";
 import { handleAddHistory } from "../../redux/history/historyAction";
+import { handleToggleSaveVideo } from "../../redux/saved/savedAction";
 
 const Watch = () => {
   const { videoId } = useParams();
   const dispatch = useDispatch();
   const video = useSelector((state) => state.watch);
   const related = useSelector((state) => state.related);
+  const saved = useSelector((state) => state.saved);
   const title = video?.video?.snippet?.title;
 
   useEffect(() => {
@@ -30,6 +32,10 @@ const Watch = () => {
       }
     }
   }, [videoId, title, dispatch]);
+
+  const onclickToggleSaveVideo = () => {
+    dispatch(handleToggleSaveVideo(videoId));
+  };
 
   return (
     <>
@@ -79,7 +85,19 @@ const Watch = () => {
                           </div>
 
                           <div className="icon">
-                            <i className="fa fa-bookmark"></i>
+                            {saved.isLoading ? (
+                              <>loading...</>
+                            ) : (
+                              <>
+                                <button
+                                  onClick={() => {
+                                    onclickToggleSaveVideo();
+                                  }}
+                                >
+                                  <i className="fa fa-bookmark text-white"></i>
+                                </button>
+                              </>
+                            )}
                           </div>
                           <div className="icon">
                             <i className="fa fa-ellipsis"></i>

@@ -7,6 +7,7 @@ import authSlice from "./auth/authSlice";
 import userSlice from "./user/userSlice";
 import postsSlice from "./posts/postsSlice";
 import historySlice from "./history/historySlice";
+import savedSlice from "./saved/savedSlice";
 
 export default configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export default configureStore({
     related: relatedSlice,
     trending: trendingSlice,
     history: historySlice,
+    saved: savedSlice,
   },
 });

@@ -54,7 +54,7 @@ const SideBar = () => {
                 <span className="nav_name">Video đã xem</span>
               </a>
 
-              <a href="#" className="nav_link navtop">
+              <a href="/saved" className="nav_link navtop">
                 {/* <i className="fa-solid fa-thumbs-up nav_icon"></i> */}
                 <i className="fa fa-bookmark nav_icon"></i>
                 <span className="nav_name">Video đã lưu</span>

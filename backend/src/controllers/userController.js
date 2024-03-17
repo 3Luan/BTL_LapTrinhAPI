@@ -63,7 +63,6 @@ let addHistory = async (req, res) => {
     }
 
     // Lưu trữ người dùng đã cập nhật
-    // Sử dụng validateBeforeSave: false để tránh các kiểm tra mô hình
     await user.save();
 
     res.status(200).json({
@@ -109,8 +108,102 @@ let getHistory = async (req, res) => {
   }
 };
 
+let toggleSaveVideo = async (req, res) => {
+  try {
+    const { videoId } = req.body;
+    const userId = req.userId;
+
+    if (!videoId) {
+      throw {
+        code: 1,
+        message: "Lỗi: không tìm thấy videoId",
+      };
+    }
+
+    // Tìm người dùng
+    const user = await userModel.findById(userId);
+
+    // Nếu người dùng không tồn tại
+    if (!user) {
+      throw {
+        code: 1,
+        message: "Lỗi: Người dùng không tồn tại",
+      };
+    }
+
+    // Tìm video trong saved của người dùng
+    const existingVideoIndex = user.saved.findIndex(
+      (item) => item.videoId === videoId
+    );
+
+    if (existingVideoIndex !== -1) {
+      // Nếu video đã tồn tại
+      user.saved.splice(existingVideoIndex, 1);
+
+      res.status(200).json({
+        code: 0,
+        message: "UnSave Video thành công",
+        saved: user.saved,
+      });
+
+      await user.save();
+
+      return;
+    } else {
+      // Nếu video chưa có trong saved, thêm mới vào saved
+      user.saved.unshift({ videoId, addedAt: Date.now() });
+
+      res.status(200).json({
+        code: 0,
+        message: "Save Video thành công",
+        saved: user.saved,
+      });
+
+      await user.save();
+      return;
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(200).json({
+      code: error.code || 1,
+      message: error.message || "Đã có lỗi xảy ra: toggleSaveVideo",
+    });
+  }
+};
+
+let getSavedVideo = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    // Tìm người dùng theo userId
+    const user = await userModel.findById(userId);
+
+    // Kiểm tra nếu không tìm thấy người dùng
+    if (!user) {
+      throw {
+        code: 1,
+        message: "Lỗi: Người dùng không tồn tại",
+      };
+    }
+
+    // Trả về saved của người dùng
+    res.status(200).json({
+      code: 0,
+      message: "Lấy video đã lưu thành công",
+      saved: user.saved,
+    });
+  } catch (error) {
+    res.status(200).json({
+      code: error.code || 1,
+      message: error.message || "Đã có lỗi xảy ra: getSavedVideo",
+    });
+  }
+};
+
 module.exports = {
   getUserById,
   addHistory,
   getHistory,
+  toggleSaveVideo,
+  getSavedVideo,
 };
