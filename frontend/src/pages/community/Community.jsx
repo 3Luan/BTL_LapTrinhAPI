@@ -1,22 +1,56 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./community.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetPosts } from "../../redux/posts/postsAction";
 import LoadingSkeleton from "../../components/Loading/LoadingSkeleton";
+import CreatePosts from "../../components/createposts/CreatePosts";
+import moment from "moment";
+import "moment/locale/vi";
 
 const Community = () => {
+  moment.locale("vi");
+
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
+  const [showCreatePostsModal, setShowCreatePostsModal] = useState(false);
+  const [arrPosts, setArrPosts] = useState([]);
+
+  const handleClose = () => {
+    setShowCreatePostsModal(false);
+  };
+
+  const handleShowCreatePostsModal = () => {
+    setShowCreatePostsModal(true);
+  };
 
   useEffect(() => {
     dispatch(handleGetPosts());
   }, [dispatch]);
 
+  let addPost = (data) => {
+    setArrPosts([data.post, ...arrPosts]);
+    console.log(data);
+    console.log("arrPosts", arrPosts);
+  };
+
+  useEffect(() => {
+    if (posts.posts && !posts.isLoading) {
+      setArrPosts(posts.posts);
+    }
+  }, [posts.posts]);
+
   return (
     <main>
       <section className="video_items flex">
         <div className="trending">
-          <button className="chat title">Cộng đồng</button>
+          <button className="chat title">
+            Cộng đồng
+            <div className="">
+              <button onClick={() => handleShowCreatePostsModal()}>
+                Đăng bài
+              </button>
+            </div>
+          </button>
 
           {posts.isLoading ? (
             <>
@@ -28,9 +62,8 @@ const Community = () => {
             </>
           ) : (
             <>
-              {posts &&
-                posts.posts.length > 0 &&
-                posts.posts.map((item) => {
+              {arrPosts.length > 0 &&
+                arrPosts.map((item) => {
                   return (
                     <div className="community-posts" key={item._id}>
                       <div className="header-posts">
@@ -44,7 +77,9 @@ const Community = () => {
                             {item.user.name}
                           </a>
 
-                          <small className="text-muted">{item.createdAt}</small>
+                          <small className="text-muted">
+                            {moment(item.createdAt).fromNow()}
+                          </small>
                         </div>
                       </div>
                       <div className="body-posts">
@@ -93,6 +128,12 @@ const Community = () => {
             </>
           )}
         </div>
+
+        <CreatePosts
+          addPost={addPost}
+          show={showCreatePostsModal}
+          handleClose={handleClose}
+        />
       </section>
     </main>
   );

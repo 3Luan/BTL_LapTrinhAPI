@@ -49,7 +49,7 @@ export const getPopularMusicVideosAPI = () => {
       chart: "mostPopular",
       regionCode: "VN",
       videoCategoryId: 10,
-      maxResults: 10,
+      maxResults: 2,
     },
   });
 };

@@ -6,8 +6,11 @@ import { useLocation } from "react-router-dom";
 import Search from "../../components/search/Search";
 import { handleRefresh } from "../../redux/auth/authAction";
 import LoadingSkeleton from "../../components/Loading/LoadingSkeleton";
+import moment from "moment";
+import "moment/locale/vi";
 
 const Home = () => {
+  moment.locale("vi");
   const dispatch = useDispatch();
   const videos = useSelector((state) => state.videos);
   const location = useLocation();
@@ -17,6 +20,8 @@ const Home = () => {
     dispatch(getPopularVideos());
   }, []);
 
+  console.log("1");
+
   return (
     <>
       {!query ? (
@@ -25,7 +30,7 @@ const Home = () => {
             <section className="video_content grid">
               {videos.isLoading ? (
                 <>
-                  {Array(10)
+                  {Array(2)
                     .fill(0)
                     .map((item, index) => (
                       <Home.Loading key={index}></Home.Loading>
@@ -33,7 +38,7 @@ const Home = () => {
                 </>
               ) : (
                 <>
-                  {videos.videos.map((video) => (
+                  {videos?.videos?.map((video) => (
                     <>
                       <div key={video.id} className="video_items">
                         <a href={`/watch/${video.id}`}>
@@ -55,7 +60,10 @@ const Home = () => {
                               {video.snippet.channelTitle}{" "}
                               <i className="fa fa-circle-check"></i>{" "}
                             </span>
-                            <span>{video.snippet.publishedAt}</span>
+                            <br />
+                            <span>
+                              {moment(video.snippet.publishedAt).fromNow()}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -67,7 +75,9 @@ const Home = () => {
           </main>
         </>
       ) : (
-        <Search />
+        <>
+          <Search />
+        </>
       )}
     </>
   );

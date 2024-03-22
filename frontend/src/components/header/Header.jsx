@@ -18,21 +18,15 @@ const Header = () => {
   const [keywordSearch, setKeywordSearch] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showCreatePostsModal, setShowCreatePostsModal] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const handleClose = () => {
     setShowPopup(false);
     setShowLoginModal(false);
-    setShowCreatePostsModal(false);
   };
 
   const handleShowLoginModal = () => {
     setShowLoginModal(true);
-  };
-
-  const handleShowCreatePostsModal = () => {
-    setShowCreatePostsModal(true);
   };
 
   const handleSearch = () => {
@@ -104,9 +98,6 @@ const Header = () => {
 
         <div className="user">
           <div className="icon">
-            <button onClick={() => handleShowCreatePostsModal()}>
-              <i className="fa-solid fa-plus"></i>
-            </button>
             <i className="fa-solid fa-grip"></i>
             <i className="fa-solid fa-bell"></i>
           </div>
@@ -160,7 +151,6 @@ const Header = () => {
         </div>
       </div>
       <Login show={showLoginModal} handleClose={handleClose} />
-      <CreatePosts show={showCreatePostsModal} handleClose={handleClose} />
     </header>
   );
 };

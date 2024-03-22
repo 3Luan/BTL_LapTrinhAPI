@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useHistory, useNavigate } from "react-router-dom";
 
 const PrivateRoutes = (props) => {
   const auth = useSelector((state) => state.auth);
-
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const navigate = useNavigate();
-  console.log(auth.auth, auth.isLoading);
 
   const handleOnclickLogin = () => {
     window.open("http://localhost:3001/api/auth/google", "_self");

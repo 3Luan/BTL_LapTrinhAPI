@@ -6,11 +6,19 @@ const MyProfile = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  console.log(auth.avatar);
+
   return (
     <div className="profile">
       <button className="name_profile">
         <div className="avatar_profile">
-          <img src={auth.avatar} alt="" />
+          {auth.isLoading ? (
+            <>Loading...</>
+          ) : (
+            <>
+              <img src={auth.avatar} alt="avatar" />
+            </>
+          )}
         </div>
         <span>{auth.name}</span>
         <hr />

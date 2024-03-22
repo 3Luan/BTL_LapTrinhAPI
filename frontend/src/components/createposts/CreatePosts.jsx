@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { handleCreatePosts } from "../../redux/posts/postsAction";
+import { createPostAPI } from "../../services/postsService";
+import toast from "react-hot-toast";
 
-const CreatePosts = ({ show, handleClose }) => {
+const CreatePosts = ({ show, handleClose, addPost }) => {
   const dispatch = useDispatch();
-
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
   const [files, setFiles] = useState([]);
@@ -31,7 +31,27 @@ const CreatePosts = ({ show, handleClose }) => {
     for (let i = 0; i < files.length; i++) {
       formData.append("files", files[i]);
     }
-    dispatch(handleCreatePosts(formData));
+    // dispatch(handleCreatePosts(formData));
+    handleClose(true);
+    await toast.promise(createPostAPI(formData), {
+      loading: "Bài viết đang được tạo...",
+      success: (data) => {
+        // setLoadCreatePost(false);
+        if (data.code === 0) {
+          addPost(data);
+          setContent("");
+          setImages([]);
+          setFiles([]);
+          return data.message;
+        } else {
+          throw new Error(data.message);
+        }
+      },
+      error: (error) => {
+        // setLoadCreatePost(false);
+        return error.message;
+      },
+    });
   };
 
   return (

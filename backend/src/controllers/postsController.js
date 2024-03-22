@@ -32,17 +32,38 @@ let createPosts = async (req, res) => {
     }));
 
     // Tạo bài viết mới
-    post = await postsModel.create({
+    newPost = await postsModel.create({
       user: userId,
       content,
       images: imageObjects,
       files: fileObjects,
     });
 
+    const post = await postsModel.findById(newPost._id).populate("user");
+
+    // Convert image data to base64 for sending to the client
+    const image = post.images.map((image) => ({
+      contentType: image.contentType,
+      data: image.data.toString("base64"),
+    }));
+
+    const file = post.files.map((file) => ({
+      contentType: file.contentType,
+      data: file.data.toString("base64"),
+      originalName: file.originalName, // Tên gốc của file
+      size: file.size, // Kích thước của file trong byte
+    }));
+
+    const postsWithImagesAndFiles = {
+      ...post._doc,
+      images: image,
+      files: file,
+    };
+
     res.status(200).json({
       code: 0,
       message: "Tạo bài viết thành công",
-      post,
+      post: postsWithImagesAndFiles,
     });
   } catch (error) {
     console.log(error);

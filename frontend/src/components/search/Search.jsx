@@ -17,7 +17,7 @@ const Search = () => {
       <section className="video_content grid">
         {videos.isLoading ? (
           <>
-            {Array(10)
+            {Array(2)
               .fill(0)
               .map((item, index) => (
                 <Home.Loading key={index}></Home.Loading>
@@ -25,7 +25,7 @@ const Search = () => {
           </>
         ) : (
           <>
-            {videos.videos.map((video) => {
+            {videos?.videos?.map((video) => {
               return (
                 <>
                   <div key={video.id.videoId} className="video_items">

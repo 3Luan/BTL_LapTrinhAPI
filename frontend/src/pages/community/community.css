@@ -58,8 +58,8 @@
 .images_posts {
 }
 .images_posts img {
-  height: 20%;
-  width: 20%;
+  height: auto;
+  width: 150px;
   border-radius: 10px;
 }
 
