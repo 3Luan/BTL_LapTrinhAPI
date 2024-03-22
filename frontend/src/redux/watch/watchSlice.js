@@ -11,6 +11,7 @@ export const watchSlice = createSlice({
   reducers: {
     GET_VIDEO_BY_ID: (state, action) => {
       state.isLoading = true;
+      state.video = null;
     },
     GET_VIDEO_BY_ID_ERROR: (state, action) => {
       state.isLoading = false;

@@ -52,7 +52,7 @@ const Community = () => {
             </div>
           </button>
 
-          {posts.isLoading ? (
+          {posts.isLoading && !arrPosts ? (
             <>
               {Array(2)
                 .fill(0)

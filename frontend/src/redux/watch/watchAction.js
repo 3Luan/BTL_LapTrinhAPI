@@ -1,5 +1,8 @@
 import { toast } from "react-toastify";
-import { getVideoByIdAPI } from "../../services/videoService";
+import {
+  getVideoByIdAPI,
+  getVideoCommentsByIdAPI,
+} from "../../services/videoService";
 import {
   GET_VIDEO_BY_ID,
   GET_VIDEO_BY_ID_ERROR,

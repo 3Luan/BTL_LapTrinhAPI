@@ -74,13 +74,14 @@
   font-weight: 400;
 }
 
-.comment h4 {
-  margin-right: 70px;
+.comment h5 {
+  margin-top: 20px;
+  margin-right: 50px;
   font-weight: 500;
 }
 
-.comment h4 i {
-  margin-right: 20px;
+.comment h5 i {
+  margin-right: 10px;
 }
 
 .comment_self input {
@@ -119,7 +120,6 @@
 
 .replay {
   margin-left: 70px;
-  margin-top: 20px;
 }
 
 .replay .img {

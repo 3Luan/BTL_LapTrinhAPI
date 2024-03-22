@@ -20,8 +20,6 @@ const Home = () => {
     dispatch(getPopularVideos());
   }, []);
 
-  console.log("1");
-
   return (
     <>
       {!query ? (

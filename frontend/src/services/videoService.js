@@ -31,6 +31,17 @@ export const getVideoByIdAPI = (videoId) => {
   });
 };
 
+export const getVideoCommentsByIdAPI = (videoId) => {
+  return youtubeApi.get(`commentThreads`, {
+    params: {
+      part: "snippet",
+      videoId: videoId,
+      maxResults: 100, // Số lượng bình luận tối đa muốn lấy (có thể thay đổi)
+      order: "relevance", // Thứ tự sắp xếp bình luận
+    },
+  });
+};
+
 export const getVideoRelatedByIdAPI = (videoTitle) => {
   return youtubeApi.get(`search`, {
     params: {

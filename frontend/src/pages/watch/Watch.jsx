@@ -8,18 +8,30 @@ import { getVideoById } from "../../redux/watch/watchAction";
 import { getVideoRelatedById } from "../../redux/related/relatedAction";
 import { handleAddHistory } from "../../redux/history/historyAction";
 import { handleToggleSaveVideo } from "../../redux/saved/savedAction";
+import { getVideoCommentsById } from "../../redux/comment/commentVideoAction";
+import numeral from "numeral";
+import moment from "moment";
+import "moment/locale/vi";
 
 const Watch = () => {
+  moment.locale("vi");
+
   const { videoId } = useParams();
   const dispatch = useDispatch();
   const video = useSelector((state) => state.watch);
   const related = useSelector((state) => state.related);
+  const commentVideo = useSelector((state) => state.commentVideo);
   const saved = useSelector((state) => state.saved);
   const title = video?.video?.snippet?.title;
 
   useEffect(() => {
-    dispatch(handleAddHistory(videoId));
-  }, [videoId]);
+    if (video.video && !video.isLoading) {
+      dispatch(handleAddHistory(videoId));
+      dispatch(getVideoCommentsById(videoId));
+
+      console.log("commentVideo", commentVideo);
+    }
+  }, [video.video]);
 
   useEffect(() => {
     if (videoId) {
@@ -31,7 +43,7 @@ const Watch = () => {
         dispatch(getVideoRelatedById(firstHalf));
       }
     }
-  }, [videoId, title, dispatch]);
+  }, []);
 
   const onclickToggleSaveVideo = () => {
     dispatch(handleToggleSaveVideo(videoId));
@@ -68,14 +80,21 @@ const Watch = () => {
                       <div className="view flex2 border_bottom">
                         <div className="view-text">
                           <span>
-                            {video.video.statistics.viewCount} lượt xem
+                            {numeral(video.video.statistics.viewCount).format(
+                              "0,0"
+                            )}{" "}
+                            lượt xem
                           </span>
                         </div>
 
                         <div className="flex">
                           <div className="icon">
                             <i className="fa fa-thumbs-up"></i>
-                            <label>{video.video.statistics.likeCount}</label>
+                            <label>
+                              {numeral(video.video.statistics.likeCount).format(
+                                "0,0"
+                              )}
+                            </label>
                           </div>
                           <div className="icon">
                             <i className="fa fa-thumbs-down"></i>
@@ -131,13 +150,16 @@ const Watch = () => {
                       </div>
                       <div className="comment">
                         <div className="comment-heading flex">
-                          <h4>
-                            {video.video.statistics.commentCount} Bình luận
-                          </h4>
-                          <h4>
+                          <h5>
+                            {numeral(
+                              video.video.statistics.commentCount
+                            ).format("0,0")}{" "}
+                            Bình luận
+                          </h5>
+                          <h5>
                             <i className="fa fa-list-ul"></i>
                             <label>Sắp xếp theo</label>
-                          </h4>
+                          </h5>
                         </div>
                       </div>
                       <div className="details comment_self flex">
@@ -154,32 +176,78 @@ const Watch = () => {
                           ></input>
                         </div>
                       </div>
-                      <div className="details_Comment">
-                        <div className="details flex">
-                          <div className="img">
-                            <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" />
-                          </div>
-                          <div className="heading">
-                            <h4>
-                              Võ Văn A <span>2 months ago</span>
-                            </h4>
-                            <p>test bình luận</p>
-                            <div className="comment-like flex">
-                              <div className="icon">
-                                <i className="fa fa-thumbs-up"></i>
-                                <label>5</label>
+                      {/* Bình luận */}
+
+                      {commentVideo?.comment?.length > 0 &&
+                        commentVideo?.comment?.map((item) => {
+                          return (
+                            <>
+                              <div className="details_Comment">
+                                <div className="details flex">
+                                  <div className="img">
+                                    <img
+                                      src={
+                                        item.snippet.topLevelComment.snippet
+                                          .authorProfileImageUrl
+                                      }
+                                    />
+                                  </div>
+                                  <div className="heading">
+                                    <h4>
+                                      {
+                                        item.snippet.topLevelComment.snippet
+                                          .authorDisplayName
+                                      }{" "}
+                                      <span>
+                                        {moment(
+                                          item.snippet.topLevelComment.snippet
+                                            .updatedAt
+                                        ).fromNow()}
+                                      </span>
+                                    </h4>
+
+                                    <p
+                                      dangerouslySetInnerHTML={{
+                                        __html:
+                                          item.snippet.topLevelComment.snippet
+                                            .textDisplay,
+                                      }}
+                                    />
+                                    <div className="comment-like flex">
+                                      <div className="icon">
+                                        <i className="fa fa-thumbs-up"></i>
+                                        <label>
+                                          {
+                                            item.snippet.topLevelComment.snippet
+                                              .likeCount
+                                          }
+                                        </label>
+                                      </div>
+                                      <div className="icon">
+                                        <i className="fa fa-thumbs-down"></i>
+                                      </div>
+                                      <div className="icon">
+                                        <label>Phản hồi</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                              <div className="icon">
-                                <i className="fa fa-thumbs-down"></i>
-                              </div>
-                              <div className="icon">
-                                <label>Phản hồi</label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="replay">
+                              {item.snippet.totalReplyCount > 0 ? (
+                                <>
+                                  <div className="replay">
+                                    <label className="tags">
+                                      <i className="fa fa-caret-up"></i>{" "}
+                                      {item.snippet.totalReplyCount} phản hồi
+                                    </label>
+                                  </div>
+                                </>
+                              ) : null}
+                            </>
+                          );
+                        })}
+
+                      {/* <div className="replay">
                         <label className="tags">
                           <i className="fa fa-caret-up"></i> 1 phản hồi
                         </label>
@@ -195,7 +263,9 @@ const Watch = () => {
                             <p>Test phản hồi bình luận</p>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
+
+                      {/* end bình luận */}
                     </div>
                   </div>
                 </>
