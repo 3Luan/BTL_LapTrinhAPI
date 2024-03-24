@@ -1,4 +1,5 @@
 const postsModel = require("../models/postsModel");
+// const userModel = require("../models/userModel");
 const mongoose = require("mongoose");
 
 let createPosts = async (req, res) => {
@@ -127,20 +128,192 @@ let deletePosts = async (req, res) => {
   } catch (error) {}
 };
 
-let getPostsById = async (req, res) => {
+let getPostDetailById = async (req, res) => {
   try {
-  } catch (error) {}
+    const postId = req.params.postId;
+
+    const postDetail = await postsModel
+      .findById(postId)
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          select: "name pic",
+        },
+      })
+      // .populate({
+      //   path: "comments",
+      //   populate: {
+      //     path: "replies",
+      //     populate: {
+      //       path: "user",
+      //       select: "name pic",
+      //     },
+      //   },
+      // })
+      .populate("user", "name pic");
+
+    if (!postDetail) {
+      throw {
+        code: 1,
+        message: "Không tìm thấy bài viết",
+      };
+    }
+
+    // Convert image data to base64 for sending to the client
+    const images = postDetail.images.map((image) => ({
+      contentType: image.contentType,
+      data: image.data.toString("base64"),
+    }));
+
+    const files = postDetail.files.map((file) => ({
+      contentType: file.contentType,
+      data: file.data.toString("base64"),
+      originalName: file.originalName, // Tên gốc của file
+      size: file.size, // Kích thước của file trong byte
+    }));
+
+    const postsWithImagesAndFiles = {
+      ...postDetail._doc,
+      images,
+      files,
+    };
+
+    res.status(200).json({
+      code: 0,
+      message: "Lấy thông tin bài viết thành công",
+      postDetail: postsWithImagesAndFiles,
+    });
+  } catch (error) {
+    res.status(200).json({
+      code: error.code || 1,
+      message: error.message || "Đã có lỗi xảy ra: getPostDetailById",
+    });
+  }
 };
 
 let getPostsByUserId = async (req, res) => {
   try {
-  } catch (error) {}
+    const userId = req.userId;
+
+    const posts = await postsModel
+      .find({ user: userId })
+      .populate("user")
+      .sort({ createdAt: -1 });
+
+    if (!posts || posts.length === 0) {
+      throw {
+        code: 1,
+        message: "Không có bài viết nào",
+      };
+    }
+
+    // Convert image data to base64 for sending to the client
+    const postsWithImagesAndFiles = posts.map((post) => {
+      const images = post.images.map((image) => ({
+        contentType: image.contentType,
+        data: image.data.toString("base64"),
+      }));
+
+      const files = post.files.map((file) => ({
+        contentType: file.contentType,
+        data: file.data.toString("base64"),
+        originalName: file.originalName, // Tên gốc của file
+        size: file.size, // Kích thước của file trong byte
+      }));
+
+      return {
+        ...post._doc,
+        images,
+        files,
+      };
+    });
+
+    res.status(200).json({
+      code: 0,
+      message: "Lấy tất cả bài viết thành công",
+      posts: postsWithImagesAndFiles,
+    });
+  } catch (error) {
+    res.status(200).json({
+      code: error.code || 1,
+      message: error.message || "Đã có lỗi xảy ra: getPosts",
+    });
+  }
+};
+
+let toggleLikePost = async (req, res) => {
+  try {
+    const { postId } = req.body;
+    const userId = req.userId;
+
+    if (!postId) {
+      throw {
+        code: 1,
+        message: "Lỗi: không tìm thấy postId",
+      };
+    }
+
+    let user = await userModel.findById(userId);
+    if (!user) {
+      throw {
+        code: 1,
+        message: "Đã có lỗi xảy ra: Không tìm thấy user",
+      };
+    }
+
+    let post = await postModel.findById(postId);
+    if (!post) {
+      throw {
+        code: 1,
+        message: "Đã có lỗi xảy ra: Không tìm thấy bài viết",
+      };
+    }
+
+    // Tìm user like trong post của người dùng
+    const existingUserIndex = post.likes.findIndex(
+      (item) => item.user === userId
+    );
+
+    if (existingUserIndex !== -1) {
+      // Nếu user đã tồn tại - xóa user đó ra
+      post.likes.splice(existingUserIndex, 1);
+
+      res.status(200).json({
+        code: 0,
+        message: "UnLike thành công",
+        like: post.likes,
+      });
+
+      await post.save();
+      return;
+    } else {
+      // Nếu user chưa có trong likes, thêm mới vào
+      post.likes.unshift({ user: userId });
+
+      res.status(200).json({
+        code: 0,
+        message: "Like thành công",
+        like: post.likes,
+      });
+
+      await post.save();
+      return;
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(200).json({
+      code: error.code || 1,
+      message: error.message || "Đã có lỗi xảy ra: toggleLikePost",
+    });
+  }
 };
 
 module.exports = {
   getPosts,
   createPosts,
   deletePosts,
-  getPostsById,
+  getPostDetailById,
   getPostsByUserId,
+  toggleLikePost,
 };

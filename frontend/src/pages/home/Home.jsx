@@ -58,8 +58,8 @@ const Home = () => {
                               {video.snippet.channelTitle}{" "}
                               <i className="fa fa-circle-check"></i>{" "}
                             </span>
-                            <br />
                             <span>
+                              {" . "}
                               {moment(video.snippet.publishedAt).fromNow()}
                             </span>
                           </div>

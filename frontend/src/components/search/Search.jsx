@@ -3,8 +3,12 @@ import "./search.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopularVideos } from "../../redux/videopopular/videoPopularAction";
 import Home from "../../pages/home/Home";
+import moment from "moment";
+import "moment/locale/vi";
 
 const Search = () => {
+  moment.locale("vi");
+
   const dispatch = useDispatch();
   const videos = useSelector((state) => state.videos);
 
@@ -25,7 +29,7 @@ const Search = () => {
           </>
         ) : (
           <>
-            {videos?.videos?.map((video) => {
+            {videos?.videoSearch?.map((video) => {
               return (
                 <>
                   <div key={video.id.videoId} className="video_items">
@@ -45,7 +49,10 @@ const Search = () => {
                           {video.snippet.channelTitle}{" "}
                           <i className="fa fa-circle-check"></i>{" "}
                         </span>
-                        <span>{video.snippet.publishedAt}</span>
+                        <span>
+                          {" . "}
+                          {moment(video.snippet.publishedAt).fromNow()}
+                        </span>
                       </div>
                     </div>
                   </div>

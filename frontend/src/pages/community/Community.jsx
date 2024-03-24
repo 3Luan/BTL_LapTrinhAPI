@@ -25,7 +25,7 @@ const Community = () => {
 
   useEffect(() => {
     dispatch(handleGetPosts());
-  }, [dispatch]);
+  }, []);
 
   let addPost = (data) => {
     setArrPosts([data.post, ...arrPosts]);
@@ -52,7 +52,7 @@ const Community = () => {
             </div>
           </button>
 
-          {posts.isLoading && !arrPosts ? (
+          {posts.isLoading || arrPosts.length === 0 ? (
             <>
               {Array(2)
                 .fill(0)

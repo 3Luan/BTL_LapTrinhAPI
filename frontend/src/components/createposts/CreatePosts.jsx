@@ -9,6 +9,7 @@ const CreatePosts = ({ show, handleClose, addPost }) => {
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
   const [files, setFiles] = useState([]);
+  const [loadCreatePost, setLoadCreatePost] = useState(false);
 
   const handleContentChange = (e) => {
     setContent(e.target.value);
@@ -23,35 +24,40 @@ const CreatePosts = ({ show, handleClose, addPost }) => {
   };
 
   const handleOnclickCreatePosts = async () => {
-    const formData = new FormData();
-    formData.append("content", content);
-    for (let i = 0; i < images.length; i++) {
-      formData.append("images", images[i]);
+    if (!content) {
+      return toast.error("Hãy nhập nội dung");
+    } else {
+      setLoadCreatePost(true);
+
+      const formData = new FormData();
+      formData.append("content", content);
+      for (let i = 0; i < images.length; i++) {
+        formData.append("images", images[i]);
+      }
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+      }
+      handleClose(true);
+      await toast.promise(createPostAPI(formData), {
+        loading: "Bài viết đang được tạo...",
+        success: (data) => {
+          if (data.code === 0) {
+            addPost(data);
+            setContent("");
+            setImages([]);
+            setFiles([]);
+            return data.message;
+          } else {
+            throw new Error(data.message);
+          }
+        },
+        error: (error) => {
+          return error.message;
+        },
+      });
+
+      setLoadCreatePost(false);
     }
-    for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
-    }
-    // dispatch(handleCreatePosts(formData));
-    handleClose(true);
-    await toast.promise(createPostAPI(formData), {
-      loading: "Bài viết đang được tạo...",
-      success: (data) => {
-        // setLoadCreatePost(false);
-        if (data.code === 0) {
-          addPost(data);
-          setContent("");
-          setImages([]);
-          setFiles([]);
-          return data.message;
-        } else {
-          throw new Error(data.message);
-        }
-      },
-      error: (error) => {
-        // setLoadCreatePost(false);
-        return error.message;
-      },
-    });
   };
 
   return (
@@ -88,14 +94,24 @@ const CreatePosts = ({ show, handleClose, addPost }) => {
           {/* Hiển thị danh sách các hình ảnh đã chọn */}
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="primary"
-            onClick={() => {
-              handleOnclickCreatePosts();
-            }}
-          >
-            Đăng
-          </Button>
+          {loadCreatePost ? (
+            <>
+              <Button variant="primary">
+                <i className="fas fa-circle-notch fa-spin"></i>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  handleOnclickCreatePosts();
+                }}
+              >
+                Đăng
+              </Button>
+            </>
+          )}
         </Modal.Footer>
       </Modal>
     </>

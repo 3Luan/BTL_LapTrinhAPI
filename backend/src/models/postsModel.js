@@ -27,14 +27,13 @@ const postsSchema = new mongoose.Schema(
     ],
     likes: [
       {
-        type: String,
-        ref: "Like",
+        user: { type: String },
       },
     ],
     comments: [
       {
         type: String,
-        ref: "Comment",
+        ref: "Comments",
       },
     ],
   },

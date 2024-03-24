@@ -6,20 +6,23 @@ const commentSchema = new mongoose.Schema(
       type: String,
       ref: "Users",
     },
-    posts: {
-      type: String,
-      ref: "Posts",
-    },
     content: {
       type: String,
       required: true,
     },
+
+    replies: [
+      {
+        type: String,
+        ref: "Comments",
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-const commentModel = mongoose.model("comment", commentSchema);
+const commentModel = mongoose.model("Comments", commentSchema);
 
 module.exports = commentModel;
