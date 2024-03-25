@@ -12,6 +12,10 @@ export const createPostAPI = (formData) => {
   });
 };
 
-export const getPostsByUserId = () => {
-  return backendApi.get(`/api/posts/getPostsByUserId`);
+export const getPostsByUserId = (userId) => {
+  return backendApi.get(`/api/posts/getPostsByUserId/${userId}`);
+};
+
+export const toggleLikePostAPI = (postId) => {
+  return backendApi.post(`/api/posts/toggleLikePost`, { postId });
 };

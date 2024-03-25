@@ -11,7 +11,7 @@ let getUserById = async (req, res) => {
       };
     }
 
-    let user = await userModel.findById(userId);
+    let user = await userModel.findById(userId).select("_id name email avatar");
 
     if (!user) {
       throw {

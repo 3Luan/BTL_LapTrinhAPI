@@ -6,12 +6,16 @@ import LoadingSkeleton from "../../components/Loading/LoadingSkeleton";
 import CreatePosts from "../../components/createposts/CreatePosts";
 import moment from "moment";
 import "moment/locale/vi";
+import { toggleLikePostAPI } from "../../services/postsService";
+import toast from "react-hot-toast";
+import PostCard from "../../components/Card/PostCard";
 
 const Community = () => {
   moment.locale("vi");
 
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
+  const auth = useSelector((state) => state.auth);
   const [showCreatePostsModal, setShowCreatePostsModal] = useState(false);
   const [arrPosts, setArrPosts] = useState([]);
 
@@ -29,13 +33,21 @@ const Community = () => {
 
   let addPost = (data) => {
     setArrPosts([data.post, ...arrPosts]);
-    console.log(data);
-    console.log("arrPosts", arrPosts);
   };
 
   useEffect(() => {
+    // Khởi tạo trạng thái isLike cho mỗi bài viết từ dữ liệu posts
     if (posts.posts && !posts.isLoading) {
       setArrPosts(posts.posts);
+
+      // console.log("posts.posts", posts);
+      // const initialLikes = {};
+      // posts.posts.forEach((post) => {
+      //   initialLikes[post._id] = post.likes.some(
+      //     (like) => like.user === auth.id
+      //   );
+      // });
+      // setIsLike(initialLikes);
     }
   }, [posts.posts]);
 
@@ -62,69 +74,13 @@ const Community = () => {
             </>
           ) : (
             <>
-              {arrPosts.length > 0 &&
+              {arrPosts.length > 0 ? (
                 arrPosts.map((item) => {
-                  return (
-                    <div className="community-posts" key={item._id}>
-                      <div className="header-posts">
-                        <a href={`profile/${item.user._id}`}>
-                          <div className="avatar">
-                            <img alt="" src={item.user.avatar} />
-                          </div>
-                        </a>
-                        <div className="info">
-                          <a href={`profile/${item.user._id}`}>
-                            {item.user.name}
-                          </a>
-
-                          <small className="text-muted">
-                            {moment(item.createdAt).fromNow()}
-                          </small>
-                        </div>
-                      </div>
-                      <div className="body-posts">
-                        <div className="content">
-                          <p>{item.content}</p>
-                        </div>
-                        <div className="images_posts">
-                          {item.images &&
-                            item.images.map((image, index) => (
-                              <img
-                                key={index}
-                                alt={`Post Image ${index}`}
-                                src={`data:${image.contentType};base64,${image.data}`}
-                              />
-                            ))}
-                        </div>
-                        <div className="files_posts">
-                          {item.files &&
-                            item.files.map((file, index) => (
-                              <div key={index} className="file-item">
-                                <a
-                                  href={`data:${file.contentType};base64,${file.data}`}
-                                  download={file.originalName}
-                                >
-                                  {file.originalName} (Size: {file.size} bytes)
-                                </a>
-                              </div>
-                            ))}
-                        </div>
-
-                        <div className="footer-posts">
-                          <div className="interaction">
-                            <hr />
-                            <button className="btn btn-white btn-xs">
-                              <i className="fa fa-thumbs-up"></i> Thích
-                            </button>
-                            <button className="btn btn-white btn-xs">
-                              <i className="fa fa-comments"></i> Bình luận
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                  return <PostCard item={item} />;
+                })
+              ) : (
+                <>Không có bài viết nào</>
+              )}
             </>
           )}
         </div>

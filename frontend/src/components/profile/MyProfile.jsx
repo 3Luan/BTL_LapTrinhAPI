@@ -5,6 +5,7 @@ import { handlegetPostsByUserId } from "../../redux/posts/postsAction";
 import Community from "../../pages/community/Community";
 import moment from "moment";
 import "moment/locale/vi";
+import PostCard from "../Card/PostCard";
 
 const MyProfile = () => {
   moment.locale("vi");
@@ -16,7 +17,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (currentTab === "posts") {
-      dispatch(handlegetPostsByUserId());
+      dispatch(handlegetPostsByUserId(auth.id));
     }
   }, [currentTab]);
 
@@ -45,62 +46,7 @@ const MyProfile = () => {
               <>
                 {posts.posts.length > 0 &&
                   posts.posts.map((item) => {
-                    return (
-                      <div className="community-posts" key={item._id}>
-                        <div className="header-posts">
-                          <div className="avatar">
-                            <img alt="" src={item.user.avatar} />
-                          </div>
-                          <div className="info">
-                            {item.user.name}
-                            <small className="text-muted">
-                              {moment(item.createdAt).fromNow()}
-                            </small>
-                          </div>
-                        </div>
-                        <div className="body-posts">
-                          <div className="content">
-                            <p>{item.content}</p>
-                          </div>
-                          <div className="images_posts">
-                            {item.images &&
-                              item.images.map((image, index) => (
-                                <img
-                                  key={index}
-                                  alt={`Post Image ${index}`}
-                                  src={`data:${image.contentType};base64,${image.data}`}
-                                />
-                              ))}
-                          </div>
-                          <div className="files_posts">
-                            {item.files &&
-                              item.files.map((file, index) => (
-                                <div key={index} className="file-item">
-                                  <a
-                                    href={`data:${file.contentType};base64,${file.data}`}
-                                    download={file.originalName}
-                                  >
-                                    {file.originalName} (Size: {file.size}{" "}
-                                    bytes)
-                                  </a>
-                                </div>
-                              ))}
-                          </div>
-
-                          <div className="footer-posts">
-                            <div className="interaction">
-                              <hr />
-                              <button className="btn btn-white btn-xs">
-                                <i className="fa fa-thumbs-up"></i> Thích
-                              </button>
-                              <button className="btn btn-white btn-xs">
-                                <i className="fa fa-comments"></i> Bình luận
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
+                    return <PostCard item={item} />;
                   })}
               </>
             )}

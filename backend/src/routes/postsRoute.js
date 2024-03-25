@@ -19,6 +19,10 @@ router.post(
 router.get("/getPosts", checkJWT, postsController.getPosts);
 router.delete("/deletePosts", checkJWT, postsController.getPosts);
 router.post("/toggleLikePost", checkJWT, postsController.toggleLikePost);
-router.get("/getPostsByUserId", checkJWT, postsController.getPostsByUserId);
+router.get(
+  "/getPostsByUserId/:userId",
+  checkJWT,
+  postsController.getPostsByUserId
+);
 
 module.exports = router;

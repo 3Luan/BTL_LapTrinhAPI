@@ -21,11 +21,11 @@ export const handleGetPosts = () => {
   };
 };
 
-export const handlegetPostsByUserId = () => {
+export const handlegetPostsByUserId = (userId) => {
   return async (dispatch, getState) => {
     dispatch(GET_POSTS());
 
-    let res = await getPostsByUserId();
+    let res = await getPostsByUserId(userId);
 
     if (res) {
       if (res.code === 0) {

@@ -1,5 +1,5 @@
 const postsModel = require("../models/postsModel");
-// const userModel = require("../models/userModel");
+const userModel = require("../models/UserModel");
 const mongoose = require("mongoose");
 
 let createPosts = async (req, res) => {
@@ -194,7 +194,7 @@ let getPostDetailById = async (req, res) => {
 
 let getPostsByUserId = async (req, res) => {
   try {
-    const userId = req.userId;
+    const userId = req.params.userId;
 
     const posts = await postsModel
       .find({ user: userId })
@@ -262,7 +262,7 @@ let toggleLikePost = async (req, res) => {
       };
     }
 
-    let post = await postModel.findById(postId);
+    let post = await postsModel.findById(postId);
     if (!post) {
       throw {
         code: 1,
