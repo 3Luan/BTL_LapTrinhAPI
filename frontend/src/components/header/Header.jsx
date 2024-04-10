@@ -6,9 +6,6 @@ import { getVideosBySearch } from "../../redux/videopopular/videoPopularAction";
 import { Popup } from "semantic-ui-react";
 import Login from "../login/Login";
 import { handleLogout } from "../../redux/auth/authAction";
-import { handleCreatePosts } from "../../redux/posts/postsAction";
-import { getPostsAPI } from "../../services/postsService";
-import CreatePosts from "../createposts/CreatePosts";
 
 const Header = () => {
   const dispatch = useDispatch();

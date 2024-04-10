@@ -25,4 +25,6 @@ router.get(
   postsController.getPostsByUserId
 );
 
+router.get("/getPostsById/:postId", checkJWT, postsController.getPostsById);
+
 module.exports = router;

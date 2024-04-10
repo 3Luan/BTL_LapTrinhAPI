@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+/* Ẩn thanh cuộn dọc */
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
 body {
   font-family: "Poppins", sans-serif !important;
   padding: 16px 16px 0 !important;
@@ -13,6 +18,7 @@ body {
   font-size: 16px !important;
   color: #58555e !important;
   background: #0f0f0f !important;
+  overflow-x: hidden; /* Ẩn thanh cuộn ngang */
 }
 
 h3 {

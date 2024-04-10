@@ -16,6 +16,10 @@ export const getPostsByUserId = (userId) => {
   return backendApi.get(`/api/posts/getPostsByUserId/${userId}`);
 };
 
+export const getPostsByIdAPI = (postId) => {
+  return backendApi.get(`/api/posts/getPostsById/${postId}`);
+};
+
 export const toggleLikePostAPI = (postId) => {
   return backendApi.post(`/api/posts/toggleLikePost`, { postId });
 };

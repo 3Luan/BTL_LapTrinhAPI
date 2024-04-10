@@ -3,10 +3,12 @@ import axios from "axios";
 // AIzaSyAE4TMUijiy75K8KQpv5bOjZocnZ-BlRdQ
 // AIzaSyBWqhobrT6nFXBQyYjuJcNg6IgsoCy0i48
 // AIzaSyC_1mkYjf6AOZRMqYYe_puF7pJEUqvO4vs
+// AIzaSyDZKB8sPVuoOpO_1c9hCxojeKurS0p4YJM
+
 const instance = axios.create({
   baseURL: "https://youtube.googleapis.com/youtube/v3/",
   params: {
-    key: "AIzaSyBWqhobrT6nFXBQyYjuJcNg6IgsoCy0i48",
+    key: "AIzaSyDZKB8sPVuoOpO_1c9hCxojeKurS0p4YJM",
   },
 });
 

@@ -3,6 +3,7 @@ import "../home/home.css";
 import "./trending.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopularMusicVideos } from "../../redux/trending/trendingAction";
+import { Link } from "react-router-dom";
 
 const Trending = () => {
   const dispatch = useDispatch();
@@ -31,15 +32,15 @@ const Trending = () => {
               ) : (
                 <>
                   {trending.videos.map((trendingVideo) => (
-                    <a href={`watch/${trendingVideo.id}`}>
+                    <Link to={`/watch/${trendingVideo.id}`}>
                       <div className="video_items vide_sidebar_trending flex">
                         <div className="thumbnails">
-                          <a href={`watch/${trendingVideo.id}`}>
+                          <Link to={`/watch/${trendingVideo.id}`}>
                             <img
                               src={trendingVideo.snippet.thumbnails.high.url}
                               alt=""
                             ></img>
-                          </a>
+                          </Link>
                         </div>
                         <div className="details">
                           <p>{trendingVideo.snippet.title}</p>
@@ -50,7 +51,7 @@ const Trending = () => {
                           <span>56.7M . 1 Week ago</span>
                         </div>
                       </div>
-                    </a>
+                    </Link>
                   ))}
                 </>
               )}

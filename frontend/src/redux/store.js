@@ -9,12 +9,14 @@ import postsSlice from "./posts/postsSlice";
 import historySlice from "./history/historySlice";
 import savedSlice from "./saved/savedSlice";
 import commentVideoSlice from "./comment/commentVideoSlice";
+import postDetailsSlice from "./postDetails/postDetailsSlice";
 
 export default configureStore({
   reducer: {
     auth: authSlice,
     user: userSlice,
     posts: postsSlice,
+    postDetails: postDetailsSlice,
     videos: videoSlice,
     watch: watchSlice,
     related: relatedSlice,

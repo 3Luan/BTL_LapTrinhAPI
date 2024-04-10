@@ -1,15 +1,15 @@
-import { getPostDetailByIdAPI } from "../../services/postService";
+import { getPostsByIdAPI } from "../../services/postsService";
 import {
   getPostById,
   getPostByIdError,
   getPostByIdSuccess,
 } from "./postDetailsSlice";
 
-export const handleGetPostDetailById = (postId) => {
+export const handleGetPostById = (postId) => {
   return async (dispatch, getState) => {
     dispatch(getPostById());
 
-    let res = await getPostDetailByIdAPI(postId);
+    let res = await getPostsByIdAPI(postId);
 
     if (res) {
       if (res.code === 0) {

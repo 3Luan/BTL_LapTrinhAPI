@@ -5,6 +5,7 @@ import { getPopularVideos } from "../../redux/videopopular/videoPopularAction";
 import Home from "../../pages/home/Home";
 import moment from "moment";
 import "moment/locale/vi";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   moment.locale("vi");
@@ -33,9 +34,9 @@ const Search = () => {
               return (
                 <>
                   <div key={video.id.videoId} className="video_items">
-                    <a href={`/watch/${video.id.videoId}`}>
+                    <Link to={`/watch/${video.id.videoId}`}>
                       <img src={video.snippet.thumbnails.high.url} alt=""></img>
-                    </a>
+                    </Link>
                     <div className="details flex">
                       <div className="img">
                         <img

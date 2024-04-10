@@ -4,18 +4,31 @@ import "moment/locale/vi";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { toggleLikePostAPI } from "../../services/postsService";
+import { useSelector } from "react-redux";
+import PostDetails from "../postDetail/PostDetails";
 
 const PostCard = ({ item }) => {
   moment.locale("vi");
+
+  const auth = useSelector((state) => state.auth);
   const [totalLike, setTotalLike] = useState(0);
-  const [isLike, setIsLike] = useState({});
+  const [isLike, setIsLike] = useState();
   const [isLoadingLike, setIsLoadingLike] = useState(false);
 
-  console.log("item", item);
+  const [showPostDetailsModal, setShowPostDetailsModal] = useState(false);
+
+  const handleClose = () => {
+    setShowPostDetailsModal(false);
+  };
+
+  const handleShowPostDetailsModal = () => {
+    setShowPostDetailsModal(true);
+  };
 
   useEffect(() => {
-    setTotalLike(item?.likes?.length);
-  }, [item.likes]);
+    setTotalLike(item.likes.length);
+    setIsLike(item.likes.some((like) => like.user === auth.id));
+  }, []);
 
   const onclickToggleLikePost = async (postId) => {
     setIsLoadingLike(true);
@@ -24,11 +37,12 @@ const PostCard = ({ item }) => {
       loading: "Loading...",
       success: (data) => {
         if (data.code === 0) {
-          // Cập nhật trạng thái thích của bài viết có postId tương ứng
-          setIsLike((prevIsLike) => ({
-            ...prevIsLike,
-            [postId]: !prevIsLike[postId],
-          }));
+          // Toggle like status
+          setIsLike(!isLike);
+          // Update totalLike
+          setTotalLike((prevTotalLike) =>
+            isLike ? prevTotalLike - 1 : prevTotalLike + 1
+          );
           return data.message;
         } else {
           throw new Error(data.message);
@@ -45,13 +59,13 @@ const PostCard = ({ item }) => {
   return (
     <div className="community-posts" key={item._id}>
       <div className="header-posts">
-        <a href={`profile/${item.user._id}`}>
+        <a href={`/profile/${item.user._id}`}>
           <div className="avatar">
             <img alt="" src={item.user.avatar} />
           </div>
         </a>
         <div className="info">
-          <a href={`profile/${item.user._id}`}>{item.user.name}</a>
+          <a href={`/profile/${item.user._id}`}>{item.user.name}</a>
 
           <small className="text-muted">
             {moment(item.createdAt).fromNow()}
@@ -89,7 +103,8 @@ const PostCard = ({ item }) => {
         <div className="footer-posts">
           <div className="interaction">
             <hr />
-
+            <span>{totalLike > 0 ? <>{totalLike} Likes</> : null}</span>
+            <br />
             <button
               className="btn btn-white btn-xs"
               onClick={() => {
@@ -98,7 +113,7 @@ const PostCard = ({ item }) => {
                 }
               }}
             >
-              {isLike[item._id] ? (
+              {isLike ? (
                 <>
                   <i className="fa-solid fa-thumbs-up"></i> Thích
                 </>
@@ -109,9 +124,18 @@ const PostCard = ({ item }) => {
               )}
             </button>
 
-            <button className="btn btn-white btn-xs">
+            {/* <button
+              className="btn btn-white btn-xs"
+              onClick={() => handleShowPostDetailsModal()}
+            >
               <i className="fa fa-comments"></i> Bình luận
-            </button>
+            </button> */}
+
+            <PostDetails
+              show={showPostDetailsModal}
+              handleClose={handleClose}
+              post={item}
+            />
           </div>
         </div>
       </div>

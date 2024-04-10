@@ -128,7 +128,7 @@ let deletePosts = async (req, res) => {
   } catch (error) {}
 };
 
-let getPostDetailById = async (req, res) => {
+let getPostsById = async (req, res) => {
   try {
     const postId = req.params.postId;
 
@@ -187,7 +187,7 @@ let getPostDetailById = async (req, res) => {
   } catch (error) {
     res.status(200).json({
       code: error.code || 1,
-      message: error.message || "Đã có lỗi xảy ra: getPostDetailById",
+      message: error.message || "Đã có lỗi xảy ra: getPostsById",
     });
   }
 };
@@ -313,7 +313,7 @@ module.exports = {
   getPosts,
   createPosts,
   deletePosts,
-  getPostDetailById,
+  getPostsById,
   getPostsByUserId,
   toggleLikePost,
 };

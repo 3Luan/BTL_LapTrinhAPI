@@ -3,6 +3,7 @@ import "../home/home.css";
 import "./history.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetHistory } from "../../redux/history/historyAction";
+import { Link } from "react-router-dom";
 
 const History = () => {
   const dispatch = useDispatch();
@@ -36,15 +37,15 @@ const History = () => {
                 <>
                   {sortedHistory.map((item) => {
                     return (
-                      <a href={`watch/${item.videoInfo.id}`}>
+                      <Link to={`/watch/${item.videoInfo.id}`}>
                         <div className="video_items vide_sidebar_history flex">
                           <div className="thumbnails">
-                            <a href={`watch/${item.videoInfo.id}`}>
+                            <Link to={`/watch/${item.videoInfo.id}`}>
                               <img
                                 src={item.videoInfo.snippet.thumbnails.high.url}
                                 alt=""
                               ></img>
-                            </a>
+                            </Link>
                           </div>
                           <div className="details">
                             <p>{item.videoInfo.snippet.title}</p>
@@ -68,7 +69,7 @@ const History = () => {
                             </span>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                     );
                   })}
                 </>

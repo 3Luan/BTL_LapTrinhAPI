@@ -3,7 +3,7 @@ import "./community.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetPosts } from "../../redux/posts/postsAction";
 import LoadingSkeleton from "../../components/Loading/LoadingSkeleton";
-import CreatePosts from "../../components/createposts/CreatePosts";
+import CreatePosts from "../../components/customs/CreatePosts";
 import moment from "moment";
 import "moment/locale/vi";
 import { toggleLikePostAPI } from "../../services/postsService";

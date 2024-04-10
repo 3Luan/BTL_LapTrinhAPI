@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./home.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPopularVideos } from "../../redux/videopopular/videoPopularAction";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Search from "../../components/search/Search";
 import { handleRefresh } from "../../redux/auth/authAction";
 import LoadingSkeleton from "../../components/Loading/LoadingSkeleton";
@@ -39,12 +39,12 @@ const Home = () => {
                   {videos?.videos?.map((video) => (
                     <>
                       <div key={video.id} className="video_items">
-                        <a href={`/watch/${video.id}`}>
+                        <Link to={`/watch/${video.id}`}>
                           <img
                             src={video.snippet.thumbnails.high.url}
                             alt=""
                           ></img>
-                        </a>
+                        </Link>
                         <div className="details flex">
                           <div className="img">
                             <img

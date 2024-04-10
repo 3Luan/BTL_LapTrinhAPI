@@ -3,6 +3,7 @@ import "../home/home.css";
 import "./saved.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handleGetSavedVideo } from "../../redux/saved/savedAction";
+import { Link } from "react-router-dom";
 
 const Saved = () => {
   const dispatch = useDispatch();
@@ -36,15 +37,15 @@ const Saved = () => {
                 <>
                   {sortedSaved?.map((item) => {
                     return (
-                      <a href={`watch/${item.videoInfo.id}`}>
+                      <Link to={`/watch/${item.videoInfo.id}`}>
                         <div className="video_items vide_sidebar_saved flex">
                           <div className="thumbnails">
-                            <a href={`watch/${item.videoInfo.id}`}>
+                            <Link to={`/watch/${item.videoInfo.id}`}>
                               <img
                                 src={item.videoInfo.snippet.thumbnails.high.url}
                                 alt=""
                               ></img>
-                            </a>
+                            </Link>
                           </div>
                           <div className="details">
                             <p>{item.videoInfo.snippet.title}</p>
@@ -68,7 +69,7 @@ const Saved = () => {
                             </span>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                     );
                   })}
                 </>

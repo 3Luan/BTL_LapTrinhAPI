@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../home/home.css";
 import YouTube from "react-youtube";
 import "./watch.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideoById } from "../../redux/watch/watchAction";
 import { getVideoRelatedById } from "../../redux/related/relatedAction";
@@ -12,6 +12,8 @@ import { getVideoCommentsById } from "../../redux/comment/commentVideoAction";
 import numeral from "numeral";
 import moment from "moment";
 import "moment/locale/vi";
+import toast from "react-hot-toast";
+import { toggleSaveVideoAPI } from "../../services/userService";
 
 const Watch = () => {
   moment.locale("vi");
@@ -22,31 +24,41 @@ const Watch = () => {
   const related = useSelector((state) => state.related);
   const commentVideo = useSelector((state) => state.commentVideo);
   const saved = useSelector((state) => state.saved);
-  const title = video?.video?.snippet?.title;
+  const [isLoadingSave, setIsLoadingSave] = useState(false);
+
+  useEffect(() => {
+    if (videoId) {
+      dispatch(getVideoById(videoId));
+    }
+  }, [videoId]);
 
   useEffect(() => {
     if (video.video && !video.isLoading) {
       dispatch(handleAddHistory(videoId));
       dispatch(getVideoCommentsById(videoId));
 
-      console.log("commentVideo", commentVideo);
+      dispatch(getVideoRelatedById(video?.video?.snippet?.title));
     }
-  }, [video.video]);
+  }, [video.video, videoId]);
 
-  useEffect(() => {
-    if (videoId) {
-      dispatch(getVideoById(videoId));
-      if (title) {
-        const halfLength = Math.ceil(title.length / 4);
-        const firstHalf = title.slice(0, halfLength);
+  const onclickToggleSaveVideo = async () => {
+    setIsLoadingSave(true);
 
-        dispatch(getVideoRelatedById(firstHalf));
-      }
-    }
-  }, []);
+    await toast.promise(toggleSaveVideoAPI(videoId), {
+      loading: "Loading...",
+      success: (data) => {
+        if (data.code === 0) {
+          return data.message;
+        } else {
+          throw new Error(data.message);
+        }
+      },
+      error: (error) => {
+        return error.message;
+      },
+    });
 
-  const onclickToggleSaveVideo = () => {
-    dispatch(handleToggleSaveVideo(videoId));
+    setIsLoadingSave(false);
   };
 
   return (
@@ -108,13 +120,15 @@ const Watch = () => {
                               <>loading...</>
                             ) : (
                               <>
-                                <button
+                                <div
                                   onClick={() => {
-                                    onclickToggleSaveVideo();
+                                    if (!isLoadingSave) {
+                                      onclickToggleSaveVideo();
+                                    }
                                   }}
                                 >
                                   <i className="fa fa-bookmark text-white"></i>
-                                </button>
+                                </div>
                               </>
                             )}
                           </div>
@@ -135,7 +149,7 @@ const Watch = () => {
                             {video.video.snippet.channelTitle}{" "}
                             <i className="fa fa-circle-check"></i>
                           </h4>
-                          <span>15M Người đăng ký</span>
+                          {/* <span>15M Người đăng ký</span> */}
                           <h5>
                             {video.video.snippet.description.length > 50
                               ? video.video.snippet.description.substring(
@@ -289,24 +303,27 @@ const Watch = () => {
               ) : (
                 <>
                   {related.video.map((relatedVideo) => (
-                    <a href={relatedVideo.id.videoId}>
+                    <Link to={`/watch/${relatedVideo.id.videoId}`}>
                       <div className="video_items vide_sidebar flex">
-                        <a href={relatedVideo.id.videoId}>
+                        <Link to={`/watch/${relatedVideo.id.videoId}`}>
                           <img
                             src={relatedVideo.snippet.thumbnails.high.url}
                             alt=""
                           ></img>
-                        </a>
+                        </Link>
                         <div className="details">
                           <p>{relatedVideo.snippet.title}</p>
                           <span>
                             {relatedVideo.snippet.channelTitle}{" "}
                             <i className="fa fa-cricle-check"> </i>
                           </span>
-                          <span>56.7M . 1 Week ago</span>
+                          <span>
+                            {" "}
+                            {moment(relatedVideo.snippet.publishTime).fromNow()}
+                          </span>
                         </div>
                       </div>
-                    </a>
+                    </Link>
                   ))}
                 </>
               )}
